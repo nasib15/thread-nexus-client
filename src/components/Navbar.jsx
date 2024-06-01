@@ -19,7 +19,7 @@ const Navbar = () => {
   return (
     <header className="sticky top-0 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full">
       <nav
-        className="relative max-w-[66rem] w-full bg-neutral-800 rounded-[28px] py-3 ps-3 pe-4 md:flex md:items-center md:justify-between md:py-2 mx-2 lg:mx-auto"
+        className="relative w-full bg-neutral-800 rounded-[28px] py-3 ps-3 pe-4 md:flex md:items-center md:justify-between md:py-2 mx-2 lg:mx-auto"
         aria-label="Global"
       >
         <div className="flex items-center justify-between">
