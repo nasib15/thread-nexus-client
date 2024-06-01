@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import logo from "/logo.png";
 import { AuthContext } from "../providers/AuthProvider";
+import { IoNotificationsOutline } from "react-icons/io5";
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
@@ -17,9 +18,9 @@ const Navbar = () => {
   };
 
   return (
-    <header className="sticky top-0 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full">
+    <header className="sticky top-0 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full ">
       <nav
-        className="relative w-full bg-neutral-800 py-3 ps-3 pe-4 md:flex md:items-center md:justify-between md:py-2 mx-2 lg:mx-auto"
+        className="relative w-full rounded-2xl bg-neutral-800 py-3 ps-3 pe-4 md:flex md:items-center md:justify-between md:py-2 mx-2 lg:mx-auto"
         aria-label="Global"
       >
         <div className="flex items-center justify-between">
@@ -93,6 +94,10 @@ const Navbar = () => {
             >
               Membership
             </Link>
+            <div className="indicator mr-4">
+              <IoNotificationsOutline className="text-white size-5" />
+              <span className="badge badge-sm indicator-item">2</span>
+            </div>
 
             <div className="hs-dropdown [--strategy:static] md:[--strategy:fixed] [--adaptive:none] py-3 ps-px sm:px-3 md:py-4">
               <button

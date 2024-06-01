@@ -4,6 +4,8 @@ import MainLayout from "../layout/MainLayout";
 import Home from "../pages/Home";
 import Login from "./../pages/Login";
 import Register from "./../pages/Register";
+import PostDetails from "../pages/PostDetails";
+import Membership from "../pages/Membership";
 
 const Router = createBrowserRouter([
   {
@@ -14,6 +16,14 @@ const Router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
+      },
+      {
+        path: "/post-details/:id",
+        element: <PostDetails></PostDetails>,
+      },
+      {
+        path: "/membership",
+        element: <Membership />,
       },
       {
         path: "/login",

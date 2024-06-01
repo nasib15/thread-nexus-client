@@ -37,7 +37,7 @@ const Register = () => {
       });
   };
   return (
-    <div className="my-10 flex justify-center items-center">
+    <div className="my-10 flex justify-center items-center min-h-[80vh]">
       <Helmet>
         <title>Thread Nexus | Register</title>
       </Helmet>
