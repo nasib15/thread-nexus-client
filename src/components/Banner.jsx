@@ -31,12 +31,12 @@ const Banner = () => {
                       type="email"
                       name="hs-search-article-1"
                       id="hs-search-article-1"
-                      className="py-2.5 px-4 block w-full border-transparent rounded-lg focus:border-blue-500 focus:ring-blue-500"
+                      className="py-2.5 px-4 block w-full border-transparent rounded-lg"
                       placeholder="Search posts"
                     />
                   </div>
                   <div className="flex-[0_0_auto] ">
-                    <button className="size-[46px] inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+                    <button className="size-[46px] inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-lime-400 text-white hover:bg-lime-500 disabled:opacity-50 disabled:pointer-events-none">
                       <svg
                         className="flex-shrink-0 size-5"
                         xmlns="http://www.w3.org/2000/svg"
