@@ -48,7 +48,7 @@ const Login = () => {
         <div
           className="hidden bg-cover bg-center lg:block lg:w-1/2"
           style={{
-            backgroundImage: `url('https://img.freepik.com/free-photo/top-view-meals-tasty-yummy-different-pastries-dishes-brown-surface_140725-14554.jpg?t=st=1715277168~exp=1715280768~hmac=22541d960610aa693b041cae480732201a3ed598c14a77135ec6fe0d84c07e68&w=740')`,
+            backgroundImage: `url('https://plus.unsplash.com/premium_photo-1681487814165-018814e29155?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`,
           }}
         ></div>
 

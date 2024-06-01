@@ -172,7 +172,7 @@ const Register = () => {
         <div
           className="hidden bg-cover bg-center lg:block lg:w-1/2"
           style={{
-            backgroundImage: `url('https://img.freepik.com/free-photo/well-done-steak-homemade-potatoes_140725-3989.jpg?t=st=1715277704~exp=1715281304~hmac=ab955309f2e7802b55d5bb5f34710a8b460cf30c5b0ad9169f5ec63effbfbc7f&w=740')`,
+            backgroundImage: `url('https://plus.unsplash.com/premium_photo-1681488479983-b10990d77110?q=80&w=2143&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`,
           }}
         ></div>
       </div>
