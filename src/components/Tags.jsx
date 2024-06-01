@@ -1,18 +1,19 @@
 import React from "react";
 
+const tags = [
+  "Technology",
+  "Health",
+  "Science",
+  "Education",
+  "Travel",
+  "Food",
+  "Lifestyle",
+  "Finance",
+  "Sports",
+  "Entertainment",
+];
+
 const Tags = () => {
-  const tags = [
-    "Technology",
-    "Health",
-    "Science",
-    "Education",
-    "Travel",
-    "Food",
-    "Lifestyle",
-    "Finance",
-    "Sports",
-    "Entertainment",
-  ];
   const handleTagClick = (tag) => {
     // Redirect to a page or perform a search with the tag
     console.log(`Searching for posts with tag: ${tag}`);

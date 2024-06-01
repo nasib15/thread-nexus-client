@@ -2,6 +2,7 @@ import React from "react";
 import Banner from "../components/Banner";
 import Tags from "../components/Tags";
 import Announcement from "../components/Announcement";
+import PostSection from "../components/PostSection";
 
 const Home = () => {
   return (
@@ -9,6 +10,7 @@ const Home = () => {
       <Banner />
       <Tags />
       <Announcement />
+      <PostSection />
     </>
   );
 };

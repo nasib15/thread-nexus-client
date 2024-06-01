@@ -1,23 +1,24 @@
 import React from "react";
 
+const announcements = [
+  {
+    id: 1,
+    title: "New Feature Release: Dark Mode",
+    date: "2024-06-01",
+    summary:
+      "We are excited to announce the release of Dark Mode on our platform. Click to learn more about this feature.",
+  },
+  {
+    id: 2,
+    title: "Scheduled Maintenance on June 5th",
+    date: "2024-05-28",
+    summary:
+      "Our site will undergo scheduled maintenance on June 5th from 2 AM to 4 AM UTC. Click for more details.",
+  },
+  // Add more announcements as needed
+];
+
 const Announcement = () => {
-  const announcements = [
-    {
-      id: 1,
-      title: "New Feature Release: Dark Mode",
-      date: "2024-06-01",
-      summary:
-        "We are excited to announce the release of Dark Mode on our platform. Click to learn more about this feature.",
-    },
-    {
-      id: 2,
-      title: "Scheduled Maintenance on June 5th",
-      date: "2024-05-28",
-      summary:
-        "Our site will undergo scheduled maintenance on June 5th from 2 AM to 4 AM UTC. Click for more details.",
-    },
-    // Add more announcements as needed
-  ];
   return (
     <div className="my-24">
       <div className="text-center space-y-4">
