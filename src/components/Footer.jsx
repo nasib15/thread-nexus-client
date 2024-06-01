@@ -81,7 +81,7 @@ const Footer = () => {
                   >
                     Career
                   </a>{" "}
-                  <span className="inline ms-1 text-xs bg-[#ED4C67] text-white py-1 px-2 rounded-lg">
+                  <span className="inline ms-1 text-xs bg-lime-400 text-neutral-900 py-1 px-2 rounded-lg">
                     We're hiring
                   </span>
                 </p>
@@ -147,7 +147,7 @@ const Footer = () => {
                   />
                 </div>
                 <a
-                  className="w-full sm:w-auto whitespace-nowrap p-3 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-lime-400 text-black hover:bg-lime-500 disabled:opacity-50 disabled:pointer-events-none"
+                  className="w-full sm:w-auto whitespace-nowrap p-3 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-lime-400 text-neutral-900 hover:bg-lime-500 disabled:opacity-50 disabled:pointer-events-none"
                   href="#"
                 >
                   Subscribe

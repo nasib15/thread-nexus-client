@@ -1,28 +1,34 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import logo from "/logo.png";
+import { useForm } from "react-hook-form";
 
 const Register = () => {
   const { createUser, updateProfileName } = useContext(AuthContext);
   const [registerError, setRegisterError] = useState(null);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state ? location.state : "/";
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const handleRegister = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const email = form.email.value;
-    const pass = form.pass.value;
-    const name = form.name.value;
-    const image = form.image.value;
+  const onSubmit = (data) => {
+    const { name, email, password, image } = data;
 
     // Create user
-    createUser(email, pass)
+    createUser(email, password)
       .then(() => {
         // Update user profile
         updateProfileName(name, image);
         toast.success("User registered successfully");
+        navigate(from);
+        return;
       })
       .catch((error) => {
         setRegisterError(error.message);
@@ -33,7 +39,7 @@ const Register = () => {
   return (
     <div className="my-10 flex justify-center items-center">
       <Helmet>
-        <title>FFiesta | Register</title>
+        <title>Thread Nexus | Register</title>
       </Helmet>
       <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg  lg:max-w-4xl ">
         <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
@@ -81,7 +87,7 @@ const Register = () => {
 
             <span className="w-1/5 border-b dark:border-gray-400 lg:w-1/4"></span>
           </div>
-          <form onSubmit={handleRegister}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mt-4">
               <label
                 className="block mb-2 text-sm font-medium text-gray-600 "
@@ -91,11 +97,14 @@ const Register = () => {
               </label>
               <input
                 id="name"
-                autoComplete="name"
                 name="name"
                 className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg"
                 type="text"
+                {...register("name", { required: true })}
               />
+              <p className="text-sm mt-2 text-red-500">
+                {errors.name && <span>This field is required</span>}
+              </p>
             </div>
             <div className="mt-4">
               <label
@@ -105,12 +114,14 @@ const Register = () => {
                 Photo URL
               </label>
               <input
-                id="photo"
-                autoComplete="photo"
                 name="url"
                 className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg"
                 type="text"
+                {...register("image", { required: true })}
               />
+              <p className="text-sm mt-2 text-red-500">
+                {errors.image && <span>This field is required</span>}
+              </p>
             </div>
             <div className="mt-4">
               <label
@@ -120,12 +131,28 @@ const Register = () => {
                 Email Address
               </label>
               <input
-                id="LoggingEmailAddress"
-                autoComplete="email"
                 name="email"
                 className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg"
                 type="email"
+                {...register("email", {
+                  required: true,
+                  pattern: {
+                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                    message: "Invalid email address",
+                  },
+                })}
               />
+              <p className="text-sm mt-2 text-red-500">
+                {errors.email ? (
+                  errors.email.message ? (
+                    <span>{errors.email.message}</span>
+                  ) : (
+                    <span>This field is required</span>
+                  )
+                ) : (
+                  ""
+                )}
+              </p>
             </div>
 
             <div className="mt-4">
@@ -139,17 +166,19 @@ const Register = () => {
               </div>
 
               <input
-                id="loggingPassword"
-                autoComplete="current-password"
                 name="pass"
                 className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg"
                 type="password"
+                {...register("password", { required: true })}
               />
+              <p className="text-sm mt-2 text-red-500">
+                {errors.password && <span>This field is required</span>}
+              </p>
             </div>
             <div className="mt-6">
               <button
                 type="submit"
-                className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-[#ED4C67] rounded-lg hover:bg-[#B53471]"
+                className="w-full px-6 py-3 text-sm font-medium tracking-wide text-neutral-900 capitalize transition-colors duration-300 transform bg-lime-400 rounded-lg hover:bg-lime-500"
               >
                 Sign Up
               </button>

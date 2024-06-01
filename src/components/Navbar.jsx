@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import logo from "/logo.png";
+import { AuthContext } from "../providers/AuthProvider";
 
 const Navbar = () => {
+  const { user, signOutUser } = useContext(AuthContext);
+
+  const handleLogout = async () => {
+    try {
+      const { user } = await signOutUser();
+      console.log(user);
+      console.log("Signed Out");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <header className="sticky top-0 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full">
       <nav
@@ -84,63 +97,56 @@ const Navbar = () => {
             <div className="hs-dropdown [--strategy:static] md:[--strategy:fixed] [--adaptive:none] py-3 ps-px sm:px-3 md:py-4">
               <button
                 type="button"
-                className="flex items-center w-full text-sm text-white hover:text-neutral-300 focus:outline-none focus:text-neutral-300"
+                className="flex items-center w-full text-sm text-white hover:text-neutral-300 focus:outline-none focus:text-neutral-300 md:mr-2"
               >
-                About
-                <svg
-                  className="flex-shrink-0 ms-1 size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="m6 9 6 6 6-6" />
-                </svg>
+                {user ? (
+                  <div>
+                    <img
+                      src={user?.photoURL}
+                      alt="pro-pic"
+                      className="size-10 rounded-full"
+                    />
+                  </div>
+                ) : (
+                  <div>
+                    <Link
+                      to="/login"
+                      className="group inline-flex items-center gap-x-2 py-2 px-3 bg-lime-400 hover:bg-lime-500 font-medium text-sm text-neutral-800 rounded-full focus:outline-none"
+                    >
+                      JOIN US
+                    </Link>
+                  </div>
+                )}
               </button>
 
-              <div className="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] md:duration-[150ms] hs-dropdown-open:opacity-100 opacity-0 md:w-48 hidden z-10 bg-neutral-800 md:shadow-md rounded-lg p-2 before:absolute top-full before:-top-5 before:start-0 before:w-full before:h-5">
-                <a
-                  className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-white hover:text-neutral-300 font-medium focus:outline-none focus:text-neutral-300"
-                  href="#"
-                >
-                  About
-                </a>
-                <div className="hs-dropdown [--strategy:static] md:[--strategy:absolute] [--adaptive:none] md:[--trigger:hover] relative">
-                  <button
-                    type="button"
-                    className="w-full flex justify-between items-center py-2 px-3 text-sm text-white hover:text-neutral-300 font-medium focus:outline-none focus:text-neutral-300"
-                  >
-                    Sub Menu
+              <div className="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] md:duration-[150ms] hs-dropdown-open:opacity-100 opacity-0 md:w-48 hidden z-10 bg-neutral-800 md:shadow-md rounded-lg before:absolute top-full before:-top-5 before:start-0 before:w-full before:h-5">
+                {user && (
+                  <button className="flex disabled items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-white hover:text-neutral-300 font-medium focus:outline-none focus:text-neutral-300">
+                    {user?.displayName}
                   </button>
+                )}
+
+                <div className="hs-dropdown [--strategy:static] md:[--strategy:absolute] [--adaptive:none] md:[--trigger:hover] relative">
+                  {user && (
+                    <Link
+                      to={"/dashboard/profile"}
+                      className="w-full flex justify-between items-center py-2 px-3 text-sm text-white hover:text-neutral-300 font-medium focus:outline-none focus:text-neutral-300"
+                    >
+                      Dashboard
+                    </Link>
+                  )}
                 </div>
 
-                <a
-                  className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-white hover:text-neutral-300 font-medium focus:outline-none focus:text-neutral-300"
-                  href="#"
-                >
-                  Downloads
-                </a>
-                <a
-                  className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-white hover:text-neutral-300 font-medium focus:outline-none focus:text-neutral-300"
-                  href="#"
-                >
-                  Team Account
-                </a>
+                {user && (
+                  <button
+                    onClick={handleLogout}
+                    className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-white hover:text-neutral-300 font-medium focus:outline-none focus:text-neutral-300"
+                    href="#"
+                  >
+                    Log Out
+                  </button>
+                )}
               </div>
-            </div>
-
-            <div>
-              <Link
-                to="/login"
-                className="group inline-flex items-center gap-x-2 py-2 px-3 bg-lime-400 hover:bg-lime-500 font-medium text-sm text-neutral-800 rounded-full focus:outline-none"
-              >
-                JOIN US
-              </Link>
             </div>
           </div>
         </div>
