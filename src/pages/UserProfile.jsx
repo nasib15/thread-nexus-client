@@ -4,8 +4,9 @@ import { FaCrown, FaMedal } from "react-icons/fa";
 const user = {
   name: "John Doe",
   email: "john.doe@example.com",
-  avatar: "https://via.placeholder.com/150", // Replace with actual URL
-  isMember: true, // Change to true if the user is a member
+  avatar:
+    "https://unsplash.com/photos/a-computer-screen-with-a-logo-on-it-xkBaqlcqeb4",
+  isMember: true,
   recentPosts: [
     {
       id: 1,

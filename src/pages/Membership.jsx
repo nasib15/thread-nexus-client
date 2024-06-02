@@ -3,11 +3,7 @@ import React, { useState } from "react";
 const Membership = () => {
   const [paymentAmount, setPaymentAmount] = useState(0);
 
-  const handlePayment = () => {
-    // Payment logic goes here
-    // After successful payment, update user's membership status and grant benefits
-    // Redirect user to appropriate page based on payment status
-  };
+  const handlePayment = () => {};
 
   return (
     <div className="my-10 flex justify-center items-center min-h-[80vh]">

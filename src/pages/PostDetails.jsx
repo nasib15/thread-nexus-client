@@ -7,7 +7,7 @@ const post = {
   date: "2024-06-01",
   author: {
     name: "John Doe",
-    avatar: "https://via.placeholder.com/150", // Replace with actual URL
+    avatar: "https://unsplash.com/photos/a-computer-screen-with-a-logo-on-it-xkBaqlcqeb4", 
   },
   tags: ["Dark Mode", "UX"],
   commentsCount: 15,
@@ -156,7 +156,6 @@ const PostDetails = () => {
           </div>
         </div>
         <div className="border-t pt-6">
-          {/* Comment section can be added here */}
         </div>
       </div>
     </div>

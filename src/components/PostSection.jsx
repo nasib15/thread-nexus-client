@@ -10,7 +10,8 @@ const posts = [
     date: "2024-06-01",
     author: {
       name: "John Doe",
-      avatar: "https://via.placeholder.com/150", // Replace with actual URL
+      avatar:
+        "https://unsplash.com/photos/a-computer-screen-with-a-logo-on-it-xkBaqlcqeb4",
     },
     tags: ["Dark Mode", "UX"],
     commentsCount: 15,
@@ -24,7 +25,8 @@ const posts = [
     date: "2024-05-28",
     author: {
       name: "Jane Smith",
-      avatar: "https://via.placeholder.com/150", // Replace with actual URL
+      avatar:
+        "https://unsplash.com/photos/a-computer-screen-with-a-logo-on-it-xkBaqlcqeb4",
     },
     tags: ["Maintenance", "Schedule"],
     commentsCount: 8,
@@ -38,7 +40,8 @@ const posts = [
     date: "2024-05-25",
     author: {
       name: "Alice Johnson",
-      avatar: "https://via.placeholder.com/150", // Replace with actual URL
+      avatar:
+        "https://unsplash.com/photos/a-computer-screen-with-a-logo-on-it-xkBaqlcqeb4",
     },
     tags: ["Profile", "Customization"],
     commentsCount: 25,
@@ -52,7 +55,8 @@ const posts = [
     date: "2024-05-20",
     author: {
       name: "Bob Brown",
-      avatar: "https://via.placeholder.com/150", // Replace with actual URL
+      avatar:
+        "https://unsplash.com/photos/a-computer-screen-with-a-logo-on-it-xkBaqlcqeb4",
     },
     tags: ["Guidelines", "Community"],
     commentsCount: 10,
@@ -66,7 +70,8 @@ const posts = [
     date: "2024-05-15",
     author: {
       name: "Charlie Davis",
-      avatar: "https://via.placeholder.com/150", // Replace with actual URL
+      avatar:
+        "https://unsplash.com/photos/a-computer-screen-with-a-logo-on-it-xkBaqlcqeb4",
     },
     tags: ["UX", "Improvements"],
     commentsCount: 18,
@@ -80,7 +85,8 @@ const posts = [
     date: "2024-05-10",
     author: {
       name: "David Evans",
-      avatar: "https://via.placeholder.com/150", // Replace with actual URL
+      avatar:
+        "https://unsplash.com/photos/a-computer-screen-with-a-logo-on-it-xkBaqlcqeb4",
     },
     tags: ["Post Formats", "Features"],
     commentsCount: 12,
@@ -94,7 +100,8 @@ const posts = [
     date: "2024-05-05",
     author: {
       name: "Emma Franklin",
-      avatar: "https://via.placeholder.com/150", // Replace with actual URL
+      avatar:
+        "https://unsplash.com/photos/a-computer-screen-with-a-logo-on-it-xkBaqlcqeb4",
     },
     tags: ["Security", "Tips"],
     commentsCount: 30,
@@ -108,7 +115,8 @@ const posts = [
     date: "2024-04-30",
     author: {
       name: "Fiona Green",
-      avatar: "https://via.placeholder.com/150", // Replace with actual URL
+      avatar:
+        "https://unsplash.com/photos/a-computer-screen-with-a-logo-on-it-xkBaqlcqeb4",
     },
     tags: ["Webinar", "Highlights"],
     commentsCount: 7,
@@ -122,7 +130,8 @@ const posts = [
     date: "2024-04-25",
     author: {
       name: "George Harris",
-      avatar: "https://via.placeholder.com/150", // Replace with actual URL
+      avatar:
+        "https://unsplash.com/photos/a-computer-screen-with-a-logo-on-it-xkBaqlcqeb4",
     },
     tags: ["Collaboration", "Tools"],
     commentsCount: 20,
@@ -136,7 +145,8 @@ const posts = [
     date: "2024-04-20",
     author: {
       name: "Hannah Ivan",
-      avatar: "https://via.placeholder.com/150", // Replace with actual URL
+      avatar:
+        "https://unsplash.com/photos/a-computer-screen-with-a-logo-on-it-xkBaqlcqeb4",
     },
     tags: ["API", "Getting Started"],
     commentsCount: 5,
@@ -150,7 +160,8 @@ const posts = [
     date: "2024-04-15",
     author: {
       name: "Isla James",
-      avatar: "https://via.placeholder.com/150", // Replace with actual URL
+      avatar:
+        "https://unsplash.com/photos/a-computer-screen-with-a-logo-on-it-xkBaqlcqeb4",
     },
     tags: ["Accessibility", "UX"],
     commentsCount: 17,
@@ -164,7 +175,8 @@ const posts = [
     date: "2024-04-10",
     author: {
       name: "Jack Kelly",
-      avatar: "https://via.placeholder.com/150", // Replace with actual URL
+      avatar:
+        "https://unsplash.com/photos/a-computer-screen-with-a-logo-on-it-xkBaqlcqeb4",
     },
     tags: ["Management", "Tips"],
     commentsCount: 14,
@@ -183,7 +195,6 @@ const PostSection = () => {
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
-  // Function to handle page change
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   return (
     <div className="my-24">

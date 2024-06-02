@@ -9,6 +9,7 @@ import Membership from "../pages/Membership";
 import Dashboard from "../layout/Dashboard";
 import UserProfile from "./../pages/UserProfile";
 import AddPost from "../pages/AddPost";
+import MyPosts from "../pages/MyPosts";
 
 const Router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const Router = createBrowserRouter([
       {
         path: "add-post",
         element: <AddPost />,
+      },
+      {
+        path: "my-posts",
+        element: <MyPosts/>,
       },
     ],
   },

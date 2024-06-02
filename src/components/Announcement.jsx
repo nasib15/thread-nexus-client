@@ -15,7 +15,6 @@ const announcements = [
     summary:
       "Our site will undergo scheduled maintenance on June 5th from 2 AM to 4 AM UTC. Click for more details.",
   },
-  // Add more announcements as needed
 ];
 
 const Announcement = () => {
