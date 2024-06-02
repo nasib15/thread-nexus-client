@@ -134,7 +134,7 @@ const Navbar = () => {
                 <div className="hs-dropdown [--strategy:static] md:[--strategy:absolute] [--adaptive:none] md:[--trigger:hover] relative">
                   {user && (
                     <Link
-                      to={"/dashboard/profile"}
+                      to={"/dashboard"}
                       className="w-full flex justify-between items-center py-2 px-3 text-sm text-white hover:text-neutral-300 font-medium focus:outline-none focus:text-neutral-300"
                     >
                       Dashboard

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BiUpvote } from "react-icons/bi";
 import { FaRegComment } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -175,6 +175,16 @@ const posts = [
 ];
 
 const PostSection = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 5;
+
+  // Calculate indexes for slicing posts array based on current page
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+
+  // Function to handle page change
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
   return (
     <div className="my-24">
       <div className="text-center space-y-4">
@@ -229,6 +239,24 @@ const PostSection = () => {
             </div>
           </Link>
         ))}
+      </div>
+      <div className="flex justify-center mt-6">
+        {Array.from(
+          { length: Math.ceil(posts.length / postsPerPage) },
+          (_, i) => (
+            <button
+              key={i}
+              onClick={() => paginate(i + 1)}
+              className={`px-4 py-2 mx-1 rounded-md ${
+                currentPage === i + 1
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }`}
+            >
+              {i + 1}
+            </button>
+          )
+        )}
       </div>
     </div>
   );
