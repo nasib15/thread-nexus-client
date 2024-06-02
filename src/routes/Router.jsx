@@ -8,6 +8,7 @@ import PostDetails from "../pages/PostDetails";
 import Membership from "../pages/Membership";
 import Dashboard from "../layout/Dashboard";
 import UserProfile from "./../pages/UserProfile";
+import AddPost from "../pages/AddPost";
 
 const Router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const Router = createBrowserRouter([
       {
         path: "profile",
         element: <UserProfile />,
+      },
+      {
+        path: "add-post",
+        element: <AddPost />,
       },
     ],
   },

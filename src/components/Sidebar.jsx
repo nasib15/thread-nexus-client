@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "/logo.png";
+import { MdOutlinePostAdd } from "react-icons/md";
 
 const Sidebar = () => {
   return (
@@ -310,29 +311,14 @@ const Sidebar = () => {
             </li>
 
             <li className="hs-accordion" id="users-accordion">
-              <button
+              <Link
+                to={"/dashboard/add-post"}
                 type="button"
-                className="hs-accordion-toggle w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent text-sm text-neutral-700 rounded-lg hover:bg-gray-100"
+                className="hs-accordion-toggle w-full text-start flex items-center gap-x-3 py-2 px-[9px] hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent text-sm text-neutral-700 rounded-lg hover:bg-gray-100"
               >
-                <svg
-                  className="flex-shrink-0 size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                  <circle cx="9" cy="7" r="4" />
-                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                </svg>
-                Users
-              </button>
+                <MdOutlinePostAdd className="size-5" />
+                Add Post
+              </Link>
             </li>
 
             <li className="hs-accordion" id="account-accordion">
