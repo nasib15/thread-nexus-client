@@ -15,7 +15,7 @@ const MyPosts = () => {
   };
 
   return (
-    <div className="lg:ml-[260px] mx-auto p-4">
+    <div>
       <div className="max-w-6xl mx-auto bg-white shadow-md rounded-lg overflow-hidden p-6">
         <h2 className="text-2xl font-bold mb-6 text-gray-800">My Posts</h2>
         <div className="overflow-x-auto">

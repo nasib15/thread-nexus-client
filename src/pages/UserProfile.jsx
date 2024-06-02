@@ -32,7 +32,7 @@ const user = {
 const UserProfile = () => {
   return (
     <div>
-      <div className="lg:ml-[260px] mx-auto p-6">
+      <div>
         <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg overflow-hidden">
           <div className="bg-gradient-to-r from-purple-500 to-blue-500 p-6">
             <div className="flex items-center">

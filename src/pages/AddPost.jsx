@@ -40,11 +40,10 @@ const AddPost = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
-    // Handle form submission
   };
 
   return (
-    <div className="lg:ml-[260px] mx-auto p-4">
+    <div>
       <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg overflow-hidden p-6">
         <h2 className="text-2xl font-semibold mb-6 text-gray-800">
           Add New Post

@@ -28,7 +28,7 @@ const AdminProfile = () => {
   const COLORS = ["#FF6384", "#36A2EB", "#FFCE56"];
 
   return (
-    <div className="lg:ml-[260px] mx-auto p-4">
+    <div>
       <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg overflow-hidden p-6">
         <h2 className="text-2xl font-bold mb-6 text-gray-800">Admin Profile</h2>
         <div className="flex items-center mb-6">

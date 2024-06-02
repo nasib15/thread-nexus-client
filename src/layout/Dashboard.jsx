@@ -6,7 +6,7 @@ const Dashboard = () => {
   return (
     <div>
       <Sidebar />
-      <div className="min-h-[80vh]">
+      <div className="lg:ml-[260px] min-h-[80vh] mx-auto p-4">
         <Outlet />
       </div>
     </div>
