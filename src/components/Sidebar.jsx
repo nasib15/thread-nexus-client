@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "/logo.png";
-import { MdOutlinePostAdd } from "react-icons/md";
+import UserSidebar from "./UserSidebar";
+import AdminSidebar from "./AdminSidebar";
 
 const Sidebar = () => {
+  let isAdmin = true;
   return (
     <div>
       <header className="sticky top-0 inset-x-0 flex flex-wrap sm:justify-start sm:flex-nowrap z-[48] w-full bg-white border-b text-sm py-2.5 sm:py-4 lg:ps-64">
@@ -106,7 +108,7 @@ const Sidebar = () => {
                 >
                   <img
                     className="inline-block size-[38px] rounded-full ring-2 ring-white"
-                    src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
+                    src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                     alt="Image Description"
                   />
                 </button>
@@ -264,9 +266,7 @@ const Sidebar = () => {
   hidden
   fixed inset-y-0 start-0 z-[60]
   bg-white border-e border-gray-200
-  lg:block lg:translate-x-0 lg:end-auto lg:bottom-0
- 
- "
+  lg:block lg:translate-x-0 lg:end-auto lg:bottom-0"
       >
         <div className="px-4 pt-4">
           <Link
@@ -284,68 +284,7 @@ const Sidebar = () => {
           className="hs-accordion-group p-6 w-full flex flex-col flex-wrap"
           data-hs-accordion-always-open
         >
-          <ul className="space-y-1.5">
-            <li>
-              <Link
-                to={"/dashboard/profile"}
-                className="flex items-center gap-x-3.5 py-2 px-2.5 bg-gray-100 text-sm text-neutral-700 rounded-lg hover:bg-gray-100"
-                href="#"
-              >
-                <svg
-                  className="flex-shrink-0 size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                  <polyline points="9 22 9 12 15 12 15 22" />
-                </svg>
-                My Profile
-              </Link>
-            </li>
-
-            <li className="hs-accordion" id="users-accordion">
-              <Link
-                to={"/dashboard/add-post"}
-                type="button"
-                className="hs-accordion-toggle w-full text-start flex items-center gap-x-3 py-2 px-[9px] hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent text-sm text-neutral-700 rounded-lg hover:bg-gray-100"
-              >
-                <MdOutlinePostAdd className="size-5" />
-                Add Post
-              </Link>
-            </li>
-
-            <li className="hs-accordion" id="projects-accordion">
-              <Link
-                to={"/dashboard/my-posts"}
-                type="button"
-                className="hs-accordion-toggle w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent text-sm text-neutral-700 rounded-lg hover:bg-gray-100"
-              >
-                <svg
-                  className="flex-shrink-0 size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <rect width="20" height="14" x="2" y="7" rx="2" ry="2" />
-                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-                </svg>
-                My Posts
-              </Link>
-            </li>
-          </ul>
+          {isAdmin ? <AdminSidebar /> : <UserSidebar />}
         </nav>
       </div>
       <div className="w-full lg:ps-64">

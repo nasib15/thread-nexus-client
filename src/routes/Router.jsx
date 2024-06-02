@@ -7,9 +7,13 @@ import Register from "./../pages/Register";
 import PostDetails from "../pages/PostDetails";
 import Membership from "../pages/Membership";
 import Dashboard from "../layout/Dashboard";
-import UserProfile from "./../pages/UserProfile";
 import AddPost from "../pages/AddPost";
 import MyPosts from "../pages/MyPosts";
+import UserProfile from "../pages/UserProfile";
+import AdminProfile from "../pages/AdminProfile";
+import ManageUsers from "../pages/ManageUsers";
+import ReportedComments from "../pages/ReportedComments";
+import Announcements from "../pages/Announcements";
 
 const Router = createBrowserRouter([
   {
@@ -54,7 +58,23 @@ const Router = createBrowserRouter([
       },
       {
         path: "my-posts",
-        element: <MyPosts/>,
+        element: <MyPosts />,
+      },
+      {
+        path: "admin-profile",
+        element: <AdminProfile />,
+      },
+      {
+        path: "manage-users",
+        element: <ManageUsers />,
+      },
+      {
+        path: "reported-comments",
+        element: <ReportedComments />,
+      },
+      {
+        path: "announcements",
+        element: <Announcements />,
       },
     ],
   },

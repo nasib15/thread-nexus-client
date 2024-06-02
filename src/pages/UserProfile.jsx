@@ -5,7 +5,7 @@ const user = {
   name: "John Doe",
   email: "john.doe@example.com",
   avatar:
-    "https://unsplash.com/photos/a-computer-screen-with-a-logo-on-it-xkBaqlcqeb4",
+    "https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   isMember: true,
   recentPosts: [
     {

@@ -44,7 +44,7 @@ const AddPost = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div className="lg:ml-[260px] mx-auto p-4">
       <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg overflow-hidden p-6">
         <h2 className="text-2xl font-semibold mb-6 text-gray-800">
           Add New Post
