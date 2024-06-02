@@ -6,7 +6,9 @@ const Dashboard = () => {
   return (
     <div>
       <Sidebar />
-      <Outlet />
+      <div className="min-h-[80vh]">
+        <Outlet />
+      </div>
     </div>
   );
 };

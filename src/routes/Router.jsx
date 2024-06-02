@@ -7,6 +7,7 @@ import Register from "./../pages/Register";
 import PostDetails from "../pages/PostDetails";
 import Membership from "../pages/Membership";
 import Dashboard from "../layout/Dashboard";
+import UserProfile from "./../pages/UserProfile";
 
 const Router = createBrowserRouter([
   {
@@ -40,6 +41,12 @@ const Router = createBrowserRouter([
     path: "/dashboard",
     element: <Dashboard></Dashboard>,
     errorElement: <ErrorPage></ErrorPage>,
+    children: [
+      {
+        path: "profile",
+        element: <UserProfile />,
+      },
+    ],
   },
 ]);
 

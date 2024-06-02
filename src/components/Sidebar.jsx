@@ -285,7 +285,8 @@ const Sidebar = () => {
         >
           <ul className="space-y-1.5">
             <li>
-              <a
+              <Link
+                to={"/dashboard/profile"}
                 className="flex items-center gap-x-3.5 py-2 px-2.5 bg-gray-100 text-sm text-neutral-700 rounded-lg hover:bg-gray-100"
                 href="#"
               >
@@ -304,8 +305,8 @@ const Sidebar = () => {
                   <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
                   <polyline points="9 22 9 12 15 12 15 22" />
                 </svg>
-                Dashboard
-              </a>
+                My Profile
+              </Link>
             </li>
 
             <li className="hs-accordion" id="users-accordion">
