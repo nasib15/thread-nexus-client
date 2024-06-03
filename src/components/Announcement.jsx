@@ -21,7 +21,7 @@ const Announcement = () => {
   return (
     <div className="my-24">
       <div className="text-center space-y-4">
-        <h2 className="text-3xl text-neutral-900 font-bold">
+        <h2 id="announcements" className="text-3xl text-neutral-900 font-bold">
           Latest Announcements
         </h2>
         <p className="text-neutral-600">

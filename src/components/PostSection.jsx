@@ -11,7 +11,7 @@ const posts = [
     author: {
       name: "John Doe",
       avatar:
-        "https://unsplash.com/photos/a-computer-screen-with-a-logo-on-it-xkBaqlcqeb4",
+        "https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     tags: ["Dark Mode", "UX"],
     commentsCount: 15,
@@ -26,7 +26,7 @@ const posts = [
     author: {
       name: "Jane Smith",
       avatar:
-        "https://unsplash.com/photos/a-computer-screen-with-a-logo-on-it-xkBaqlcqeb4",
+        "https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     tags: ["Maintenance", "Schedule"],
     commentsCount: 8,
@@ -41,7 +41,7 @@ const posts = [
     author: {
       name: "Alice Johnson",
       avatar:
-        "https://unsplash.com/photos/a-computer-screen-with-a-logo-on-it-xkBaqlcqeb4",
+        "https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     tags: ["Profile", "Customization"],
     commentsCount: 25,
@@ -56,7 +56,7 @@ const posts = [
     author: {
       name: "Bob Brown",
       avatar:
-        "https://unsplash.com/photos/a-computer-screen-with-a-logo-on-it-xkBaqlcqeb4",
+        "https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     tags: ["Guidelines", "Community"],
     commentsCount: 10,
@@ -71,7 +71,7 @@ const posts = [
     author: {
       name: "Charlie Davis",
       avatar:
-        "https://unsplash.com/photos/a-computer-screen-with-a-logo-on-it-xkBaqlcqeb4",
+        "https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     tags: ["UX", "Improvements"],
     commentsCount: 18,
@@ -86,7 +86,7 @@ const posts = [
     author: {
       name: "David Evans",
       avatar:
-        "https://unsplash.com/photos/a-computer-screen-with-a-logo-on-it-xkBaqlcqeb4",
+        "https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     tags: ["Post Formats", "Features"],
     commentsCount: 12,
@@ -101,7 +101,7 @@ const posts = [
     author: {
       name: "Emma Franklin",
       avatar:
-        "https://unsplash.com/photos/a-computer-screen-with-a-logo-on-it-xkBaqlcqeb4",
+        "https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     tags: ["Security", "Tips"],
     commentsCount: 30,
@@ -116,7 +116,7 @@ const posts = [
     author: {
       name: "Fiona Green",
       avatar:
-        "https://unsplash.com/photos/a-computer-screen-with-a-logo-on-it-xkBaqlcqeb4",
+        "https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     tags: ["Webinar", "Highlights"],
     commentsCount: 7,
@@ -131,7 +131,7 @@ const posts = [
     author: {
       name: "George Harris",
       avatar:
-        "https://unsplash.com/photos/a-computer-screen-with-a-logo-on-it-xkBaqlcqeb4",
+        "https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     tags: ["Collaboration", "Tools"],
     commentsCount: 20,
@@ -146,7 +146,7 @@ const posts = [
     author: {
       name: "Hannah Ivan",
       avatar:
-        "https://unsplash.com/photos/a-computer-screen-with-a-logo-on-it-xkBaqlcqeb4",
+        "https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     tags: ["API", "Getting Started"],
     commentsCount: 5,
@@ -161,7 +161,7 @@ const posts = [
     author: {
       name: "Isla James",
       avatar:
-        "https://unsplash.com/photos/a-computer-screen-with-a-logo-on-it-xkBaqlcqeb4",
+        "https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     tags: ["Accessibility", "UX"],
     commentsCount: 17,
@@ -176,7 +176,7 @@ const posts = [
     author: {
       name: "Jack Kelly",
       avatar:
-        "https://unsplash.com/photos/a-computer-screen-with-a-logo-on-it-xkBaqlcqeb4",
+        "https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     tags: ["Management", "Tips"],
     commentsCount: 14,
