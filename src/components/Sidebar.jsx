@@ -4,9 +4,19 @@ import logo from "/logo.png";
 import UserSidebar from "./UserSidebar";
 import AdminSidebar from "./AdminSidebar";
 import { AuthContext } from "./../providers/AuthProvider";
+import { useQuery } from "@tanstack/react-query";
+import useAxios from "../hooks/useAxios";
 
 const Sidebar = () => {
   const { user } = useContext(AuthContext);
+  const axiosFetch = useAxios();
+  const { data: announcements } = useQuery({
+    queryKey: ["announcements"],
+    queryFn: async () => {
+      const { data } = await axiosFetch("/announcements");
+      return data;
+    },
+  });
   let isAdmin = true;
   return (
     <div>
@@ -78,7 +88,7 @@ const Sidebar = () => {
                     />
                   </svg>
                   <a className="badge badge-xs badge-primary indicator-item">
-                    2
+                    {announcements?.length}
                   </a>
                 </div>
               </button>

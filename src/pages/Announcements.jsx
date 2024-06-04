@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { useForm } from "react-hook-form";
 import useAxios from "./../hooks/useAxios";
@@ -12,14 +12,15 @@ const Announcements = () => {
     reset,
   } = useForm();
   const axiosFetch = useAxios();
+  const queryClient = useQueryClient();
   const { mutateAsync } = useMutation({
     mutationFn: async (announcement) => {
       const { data } = await axiosFetch.post("/announcements", announcement);
       return data;
     },
-    mutationKey: ["announcement"],
     onSuccess: () => {
       toast.success("Announcement created successfully.");
+      queryClient.invalidateQueries(["announcements"]);
       reset();
     },
   });

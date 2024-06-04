@@ -3,10 +3,19 @@ import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "./../providers/AuthProvider";
 import toast from "react-hot-toast";
 import logo from "/logo.png";
+import useAxios from "../hooks/useAxios";
+import { useQuery } from "@tanstack/react-query";
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
-
+  const axiosFetch = useAxios();
+  const { data: announcements } = useQuery({
+    queryKey: ["announcements"],
+    queryFn: async () => {
+      const { data } = await axiosFetch("/announcements");
+      return data;
+    },
+  });
   const handleLogout = async () => {
     try {
       await signOutUser();
@@ -75,7 +84,7 @@ const Navbar = () => {
                   href="#announcements"
                   className="badge badge-xs badge-primary indicator-item"
                 >
-                  2
+                  {announcements?.length}
                 </a>
               </div>
             </button>
