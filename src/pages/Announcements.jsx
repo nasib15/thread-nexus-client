@@ -1,20 +1,34 @@
-import React, { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import React from "react";
+import { useForm } from "react-hook-form";
+import useAxios from "./../hooks/useAxios";
+import toast from "react-hot-toast";
 
 const Announcements = () => {
-  const [formData, setFormData] = useState({
-    authorImage: "",
-    authorName: "",
-    title: "",
-    description: "",
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
+  const axiosFetch = useAxios();
+  const { mutateAsync } = useMutation({
+    mutationFn: async (announcement) => {
+      const { data } = await axiosFetch.post("/announcements", announcement);
+      return data;
+    },
+    mutationKey: ["announcement"],
+    onSuccess: () => {
+      toast.success("Announcement created successfully.");
+      reset();
+    },
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const onSubmit = async (data) => {
+    const { title, description } = data;
+    const date = new Date().toLocaleDateString("en-UK");
+    const announcement = { title, description, date };
+    await mutateAsync(announcement);
   };
 
   return (
@@ -23,41 +37,7 @@ const Announcements = () => {
         <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">
           Make Announcement
         </h2>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label
-              htmlFor="authorImage"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Author Image URL
-            </label>
-            <input
-              id="authorImage"
-              name="authorImage"
-              type="text"
-              value={formData.authorImage}
-              onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              placeholder="Enter author image URL"
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="authorName"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Author Name
-            </label>
-            <input
-              id="authorName"
-              name="authorName"
-              type="text"
-              value={formData.authorName}
-              onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              placeholder="Enter author name"
-            />
-          </div>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div>
             <label
               htmlFor="title"
@@ -66,14 +46,15 @@ const Announcements = () => {
               Title
             </label>
             <input
-              id="title"
               name="title"
               type="text"
-              value={formData.title}
-              onChange={handleChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-lime-500 focus:border-lime-500 sm:text-sm"
               placeholder="Enter announcement title"
+              {...register("title", { required: true })}
             />
+            <p className="text-sm mt-2 text-red-500">
+              {errors.title && <span>This field is required</span>}
+            </p>
           </div>
           <div>
             <label
@@ -83,19 +64,20 @@ const Announcements = () => {
               Description
             </label>
             <textarea
-              id="description"
               name="description"
-              value={formData.description}
-              onChange={handleChange}
               rows="4"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-lime-500 focus:border-lime-500 sm:text-sm"
               placeholder="Enter announcement description"
+              {...register("description", { required: true })}
             ></textarea>
+            <p className="text-sm mt-2 text-red-500">
+              {errors.description && <span>This field is required</span>}
+            </p>
           </div>
           <div>
             <button
               type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-neutral-800 bg-lime-400 hover:bg-lime-500 focus:outline-none "
             >
               Submit Announcement
             </button>

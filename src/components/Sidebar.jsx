@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import logo from "/logo.png";
 import UserSidebar from "./UserSidebar";
 import AdminSidebar from "./AdminSidebar";
+import { AuthContext } from "./../providers/AuthProvider";
 
 const Sidebar = () => {
+  const { user } = useContext(AuthContext);
   let isAdmin = true;
   return (
     <div>
@@ -59,45 +61,26 @@ const Sidebar = () => {
             </div>
 
             <div className="flex flex-row items-center justify-end gap-2">
-              <button
-                type="button"
-                className="w-[2.375rem] h-[2.375rem] inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
-              >
-                <svg
-                  className="flex-shrink-0 size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
-                  <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
-                </svg>
-              </button>
-              <button
-                type="button"
-                className="w-[2.375rem] h-[2.375rem] inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
-                data-hs-offcanvas="#hs-offcanvas-right"
-              >
-                <svg
-                  className="flex-shrink-0 size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-                </svg>
+              <button className="btn btn-ghost btn-circle">
+                <div className="indicator text-neutral-700">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                    />
+                  </svg>
+                  <a className="badge badge-xs badge-primary indicator-item">
+                    2
+                  </a>
+                </div>
               </button>
 
               <div className="hs-dropdown [--placement:bottom-right] relative inline-flex">
@@ -108,7 +91,7 @@ const Sidebar = () => {
                 >
                   <img
                     className="inline-block size-[38px] rounded-full ring-2 ring-white"
-                    src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    src={user?.photoURL}
                     alt="Image Description"
                   />
                 </button>
@@ -120,13 +103,13 @@ const Sidebar = () => {
                   <div className="py-3 px-5 -m-2 bg-gray-100 rounded-t-lg">
                     <p className="text-sm text-gray-500">Signed in as</p>
                     <p className="text-sm font-medium text-gray-800">
-                      james@site.com
+                      {user?.displayName}
                     </p>
                   </div>
                   <div className="mt-2 py-2 first:pt-0 last:pb-0">
-                    <a
-                      className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"
-                      href="#"
+                    <Link
+                      to="/"
+                      className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 "
                     >
                       <svg
                         className="flex-shrink-0 size-4"
@@ -140,58 +123,14 @@ const Sidebar = () => {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       >
-                        <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
-                        <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                        <polyline points="9 22 9 12 15 12 15 22" />
                       </svg>
-                      Newsletter
-                    </a>
-                    <a
-                      className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"
-                      href="#"
-                    >
-                      <svg
-                        className="flex-shrink-0 size-4"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
-                        <path d="M3 6h18" />
-                        <path d="M16 10a4 4 0 0 1-8 0" />
-                      </svg>
-                      Purchases
-                    </a>
-                    <a
-                      className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"
-                      href="#"
-                    >
-                      <svg
-                        className="flex-shrink-0 size-4"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" />
-                        <path d="M12 12v9" />
-                        <path d="m8 17 4 4 4-4" />
-                      </svg>
-                      Downloads
-                    </a>
-                    <a
-                      className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"
-                      href="#"
+                      Home
+                    </Link>
+                    <Link
+                      to="/membership"
+                      className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 "
                     >
                       <svg
                         className="flex-shrink-0 size-4"
@@ -210,8 +149,8 @@ const Sidebar = () => {
                         <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
                         <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                       </svg>
-                      Team Account
-                    </a>
+                      Membership
+                    </Link>
                   </div>
                 </div>
               </div>

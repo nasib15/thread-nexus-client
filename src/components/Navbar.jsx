@@ -98,7 +98,7 @@ const Navbar = () => {
                     tabIndex={0}
                     className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
                   >
-                    <li>
+                    <li className="disabled">
                       <a className="justify-between">{user?.displayName}</a>
                     </li>
                     <li>
@@ -223,7 +223,7 @@ const Navbar = () => {
                   tabIndex={0}
                   className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
                 >
-                  <li>
+                  <li className="disabled">
                     <a className="justify-between">{user?.displayName}</a>
                   </li>
                   <li>

@@ -60,6 +60,8 @@ const Router = createBrowserRouter([
         path: "my-posts",
         element: <MyPosts />,
       },
+
+      // Admin Routes
       {
         path: "admin-profile",
         element: <AdminProfile />,
