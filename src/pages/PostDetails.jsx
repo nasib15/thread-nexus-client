@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import useAxios from "../hooks/useAxios";
 import Loading from "./../components/Loading";
 import { FaRegShareFromSquare } from "react-icons/fa6";
+import CommentSection from "../components/CommentSection";
 
 const PostDetails = () => {
   const axiosFetch = useAxios();
@@ -164,7 +165,7 @@ const PostDetails = () => {
             <span>{downvote_count}</span>
           </div>
         </div>
-        <div className="border-t pt-6"></div>
+        <CommentSection />
       </div>
     </div>
   );
