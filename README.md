@@ -6,7 +6,7 @@ Website Link: [https://thread-nexus.web.app](https://thread-nexus.web.app)
 
 ### Admin Info
 
-#### Admin email: admin@gmail.comp
+#### Admin email: admin@gmail.com
 
 #### Admin pass: asdf123
 

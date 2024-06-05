@@ -9,6 +9,8 @@ import { useQuery } from "@tanstack/react-query";
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
   const axiosFetch = useAxios();
+
+  // Fetch announcements
   const { data: announcements } = useQuery({
     queryKey: ["announcements"],
     queryFn: async () => {
@@ -16,6 +18,18 @@ const Navbar = () => {
       return data;
     },
   });
+
+  // Check if user is admin
+  const { data: userRole } = useQuery({
+    queryKey: ["userRole"],
+    queryFn: async () => {
+      const { data } = await axiosFetch(`/user/${user?.email}`);
+      return data;
+    },
+  });
+
+  let isAdmin = userRole?.user_role === "admin";
+
   const handleLogout = async () => {
     try {
       await signOutUser();
@@ -111,7 +125,11 @@ const Navbar = () => {
                       <a className="justify-between">{user?.displayName}</a>
                     </li>
                     <li>
-                      <Link to={"/dashboard/profile"}>Dashboard</Link>
+                      {isAdmin ? (
+                        <Link to={"/dashboard/admin-profile"}>Dashboard</Link>
+                      ) : (
+                        <Link to={"/dashboard/profile"}>Dashboard</Link>
+                      )}
                     </li>
                     <li onClick={handleLogout}>
                       <a>Logout</a>
@@ -236,7 +254,11 @@ const Navbar = () => {
                     <a className="justify-between">{user?.displayName}</a>
                   </li>
                   <li>
-                    <Link to={"/dashboard/profile"}>Dashboard</Link>
+                    {isAdmin ? (
+                      <Link to={"/dashboard/admin-profile"}>Dashboard</Link>
+                    ) : (
+                      <Link to={"/dashboard/profile"}>Dashboard</Link>
+                    )}
                   </li>
                   <li onClick={handleLogout}>
                     <a>Logout</a>
