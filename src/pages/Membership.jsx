@@ -8,8 +8,6 @@ const stripePromise = loadStripe(
 );
 
 const Membership = () => {
-  const handlePayment = () => {};
-
   return (
     <div className="my-10 flex justify-center items-center min-h-[80vh]">
       <div className="max-w-lg w-full bg-white rounded-lg shadow-lg overflow-hidden">

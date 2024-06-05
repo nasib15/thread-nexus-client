@@ -23,7 +23,7 @@ const Sidebar = () => {
 
   // Check if user is admin
   const { data: userRole, isLoading } = useQuery({
-    queryKey: ["userRole"],
+    queryKey: ["user"],
     queryFn: async () => {
       const { data } = await axiosFetch(`/user/${user?.email}`);
       return data;

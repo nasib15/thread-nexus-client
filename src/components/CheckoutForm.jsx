@@ -1,7 +1,9 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useAxios from "./../hooks/useAxios";
+import { useMutation } from "@tanstack/react-query";
+import { AuthContext } from "./../providers/AuthProvider";
 
 const CheckoutForm = () => {
   const stripe = useStripe();
@@ -9,8 +11,20 @@ const CheckoutForm = () => {
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const [transactionId, setTransactionId] = useState("");
+  const { user } = useContext(AuthContext);
   const axiosFetch = useAxios();
   const price = 10;
+
+  // Patching user role in the database
+  const { mutateAsync } = useMutation({
+    mutationFn: async (patchedData) => {
+      const { data } = await axiosFetch.patch(
+        `/user/${user?.email}`,
+        patchedData
+      );
+      return data;
+    },
+  });
 
   useEffect(() => {
     axiosFetch
@@ -67,6 +81,10 @@ const CheckoutForm = () => {
         console.log("transaction id", paymentIntent.id);
         setTransactionId(paymentIntent.id);
         toast.success("Payment successful!");
+        // Patching user role in the database
+        await mutateAsync({
+          membership_status: "member",
+        });
       }
     }
   };

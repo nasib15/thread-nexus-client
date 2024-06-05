@@ -21,7 +21,7 @@ const Navbar = () => {
 
   // Check if user is admin
   const { data: userRole } = useQuery({
-    queryKey: ["userRole"],
+    queryKey: ["user"],
     queryFn: async () => {
       const { data } = await axiosFetch(`/user/${user?.email}`);
       return data;
