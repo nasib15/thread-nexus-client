@@ -6,6 +6,7 @@ import AdminSidebar from "./AdminSidebar";
 import { AuthContext } from "./../providers/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../hooks/useAxios";
+import Loading from "./Loading";
 
 const Sidebar = () => {
   const { user } = useContext(AuthContext);
@@ -21,7 +22,7 @@ const Sidebar = () => {
   });
 
   // Check if user is admin
-  const { data: userRole } = useQuery({
+  const { data: userRole, isLoading } = useQuery({
     queryKey: ["userRole"],
     queryFn: async () => {
       const { data } = await axiosFetch(`/user/${user?.email}`);
@@ -29,6 +30,7 @@ const Sidebar = () => {
     },
   });
   let isAdmin = userRole?.user_role === "admin";
+  if (isLoading) return <Loading />;
   return (
     <div>
       <header className="sticky top-0 inset-x-0 flex flex-wrap sm:justify-start sm:flex-nowrap z-[48] w-full bg-white border-b text-sm py-2.5 sm:py-4 lg:ps-64">

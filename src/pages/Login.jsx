@@ -5,10 +5,13 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet";
 import logo from "/logo.png";
+import { useMutation } from "@tanstack/react-query";
+import useAxios from "../hooks/useAxios";
 
 const Login = () => {
   const { signInUser, googleSignIn } = useContext(AuthContext);
   const [loginError, setLoginError] = useState(null);
+  const axiosFetch = useAxios();
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state ? location.state : "/";
@@ -17,6 +20,14 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  // Post data
+  const { mutateAsync } = useMutation({
+    mutationFn: async (userData) => {
+      const { data } = await axiosFetch.post("/users", userData);
+      return data;
+    },
+  });
 
   const onSubmit = async (data) => {
     const { email, password } = data;
@@ -37,8 +48,16 @@ const Login = () => {
   // Google Sign in
   const handleGoogleSignIn = async () => {
     try {
-      await googleSignIn();
+      const { user } = await googleSignIn();
       toast.success("User logged in successfully");
+      const userData = {
+        name: user.displayName,
+        email: user.email,
+        image: user.photoURL,
+        membership_status: "normal user",
+        user_role: "user",
+      };
+      await mutateAsync(userData);
       navigate(from);
       return;
     } catch (error) {

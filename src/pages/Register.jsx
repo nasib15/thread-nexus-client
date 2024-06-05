@@ -9,9 +9,10 @@ import useAxios from "./../hooks/useAxios";
 import { useMutation } from "@tanstack/react-query";
 
 const Register = () => {
-  const { createUser, updateProfileName, user, setUser } =
+  const { createUser, updateProfileName, user, setUser, googleSignIn } =
     useContext(AuthContext);
   const [registerError, setRegisterError] = useState(null);
+  const [loginError, setLoginError] = useState(null);
   const axiosFetch = useAxios();
   const location = useLocation();
   const navigate = useNavigate();
@@ -59,6 +60,28 @@ const Register = () => {
     // Post data
     await mutateAsync(userData);
   };
+
+  // Google Sign in
+  const handleGoogleSignIn = async () => {
+    try {
+      const { user } = await googleSignIn();
+      toast.success("User logged in successfully");
+      const userData = {
+        name: user.displayName,
+        email: user.email,
+        image: user.photoURL,
+        membership_status: "normal user",
+        user_role: "user",
+      };
+      await mutateAsync(userData);
+      navigate(from);
+      return;
+    } catch (error) {
+      await setLoginError(error.message);
+      toast.error(loginError);
+      return;
+    }
+  };
   return (
     <div className="my-10 flex justify-center items-center min-h-[80vh]">
       <Helmet>
@@ -74,7 +97,10 @@ const Register = () => {
             Get Your Free Account Now.
           </p>
 
-          <div className="flex cursor-pointer items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg   hover:bg-gray-200 ">
+          <div
+            onClick={handleGoogleSignIn}
+            className="flex cursor-pointer items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg   hover:bg-gray-200 "
+          >
             <div className="px-4 py-2">
               <svg className="w-6 h-6" viewBox="0 0 40 40">
                 <path
