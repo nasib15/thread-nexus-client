@@ -5,10 +5,14 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import logo from "/logo.png";
 import { useForm } from "react-hook-form";
+import useAxios from "./../hooks/useAxios";
+import { useMutation } from "@tanstack/react-query";
 
 const Register = () => {
-  const { createUser, updateProfileName } = useContext(AuthContext);
+  const { createUser, updateProfileName, user, setUser } =
+    useContext(AuthContext);
   const [registerError, setRegisterError] = useState(null);
+  const axiosFetch = useAxios();
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state ? location.state : "/";
@@ -18,14 +22,30 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  // Post data
+  const { mutateAsync } = useMutation({
+    mutationFn: async (userData) => {
+      const { data } = await axiosFetch.post("/users", userData);
+      return data;
+    },
+  });
+
+  const onSubmit = async (data) => {
     const { name, email, password, image } = data;
+    const userData = {
+      name,
+      email,
+      image,
+      membership_status: "normal user",
+      user_role: "user",
+    };
 
     // Create user
     createUser(email, password)
       .then(() => {
         // Update user profile
         updateProfileName(name, image);
+        setUser({ ...user, displayName: name, photoURL: image });
         toast.success("User registered successfully");
         navigate(from);
         return;
@@ -35,6 +55,9 @@ const Register = () => {
         toast.error(registerError);
         return;
       });
+
+    // Post data
+    await mutateAsync(userData);
   };
   return (
     <div className="my-10 flex justify-center items-center min-h-[80vh]">
