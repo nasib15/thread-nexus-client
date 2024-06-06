@@ -4,7 +4,7 @@ import Sidebar from "../components/Sidebar";
 
 const Dashboard = () => {
   useEffect(() => {
-    window.HSStaticMethods?.autoInit();
+    window.HSStaticMethods.autoInit();
   }, []);
   return (
     <div>

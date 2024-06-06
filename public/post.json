@@ -9,7 +9,6 @@
     "description": "Embark on a mesmerizing journey through the vast expanse of stars, galaxies, and cosmic wonders. From the fiery birth of new stars to the enigmatic black holes lurking in the cosmic abyss, this blog will ignite your curiosity and expand your understanding of the universe.",
     "tags": ["space", "astronomy", "science"],
     "time": "2024-06-04T11:42:00.000Z",
-    "comments_count": 42,
     "upvote_count": 128,
     "downvote_count": 10
   },
@@ -23,7 +22,6 @@
     "description": "Savor the flavors of global cuisine as we explore diverse recipes and culinary traditions. From fragrant Thai curries to hearty Italian pastas, our kitchen is a passport to gastronomic delights. Join us on this delectable journey!",
     "tags": ["food", "recipes", "cooking"],
     "time": "2024-06-03T04:41:00.000Z",
-    "comments_count": 20,
     "upvote_count": 75,
     "downvote_count": 5
   },
@@ -37,7 +35,6 @@
     "description": "Unravel the secrets of lost civilizations, forgotten relics, and enigmatic artifacts. From the pyramids of Egypt to the Nazca lines in Peru, this blog delves into the mysteries that continue to captivate humanity.",
     "tags": ["history", "archaeology", "mysteries"],
     "time": "2024-06-02T09:18:00.000Z",
-    "comments_count": 15,
     "upvote_count": 50,
     "downvote_count": 3
   },
@@ -51,7 +48,6 @@
     "description": "Stay ahead of the curve with insights into cutting-edge technologies. From quantum computing to neural interfaces, we explore the frontiers of innovation and their impact on our lives.",
     "tags": ["technology", "innovation", "future"],
     "time": "2024-06-01T08:09:00.000Z",
-    "comments_count": 30,
     "upvote_count": 90,
     "downvote_count": 8
   },
@@ -65,7 +61,6 @@
     "description": "From seed to bloom, join me on a horticultural adventure. Discover gardening tips, plant profiles, and the joy of nurturing life in your backyard oasis.",
     "tags": ["gardening", "plants", "nature"],
     "time": "2024-05-31T07:35:00.000Z",
-    "comments_count": 25,
     "upvote_count": 60,
     "downvote_count": 4
   },
@@ -79,7 +74,6 @@
     "description": "Brace yourself for adrenaline-pumping escapades! From skydiving over the Grand Canyon to swimming with sharks, this blog chronicles heart-stopping adventures around the globe.",
     "tags": ["adventure", "travel", "extreme sports"],
     "time": "2024-05-30T10:39:00.000Z",
-    "comments_count": 18,
     "upvote_count": 70,
     "downvote_count": 6
   },
@@ -93,7 +87,6 @@
     "description": "Dive into the world of creativity and expression. From classical masterpieces to contemporary installations, we celebrate the artists who shape our cultural landscape.",
     "tags": ["art", "creativity", "culture"],
     "time": "2024-05-29T10:51:43.000Z",
-    "comments_count": 22,
     "upvote_count": 80,
     "downvote_count": 7
   },
@@ -107,7 +100,6 @@
     "description": "Explore mindfulness practices, meditation techniques, and holistic well-being. Discover inner peace amidst life's chaos and cultivate a harmonious existence.",
     "tags": ["mindfulness", "wellness", "spirituality"],
     "time": "2024-05-29T13:56:28.000Z",
-    "comments_count": 12,
     "upvote_count": 45,
     "downvote_count": 2
   },
@@ -121,7 +113,6 @@
     "description": "From classic novels to contemporary bestsellers, this blog celebrates the magic of literature. Join me on literary journeys that traverse time, genres, and emotions. Whether you're a bibliophile seeking hidden gems or a casual reader dipping your toes into literary waters, this blog promises enchanting tales and thought-provoking discussions.",
     "tags": ["books", "literature", "reading"],
     "time": "2024-05-28T20:17:51.000Z",
-    "comments_count": 28,
     "upvote_count": 85,
     "downvote_count": 6
   },
@@ -135,7 +126,6 @@
     "description": "Decode the binary world with our byte-sized tech insights. From coding tutorials to gadget reviews, we demystify the digital landscape. Join us on this byte-sized adventure!",
     "tags": ["technology", "coding", "gadgets"],
     "time": "2024-05-27T10:40:14.000Z",
-    "comments_count": 35,
     "upvote_count": 110,
     "downvote_count": 9
   },
@@ -149,7 +139,6 @@
     "description": "Pack your bags and explore the globe! From hidden gems in bustling cities to serene landscapes off the beaten path, this travel blog is your compass to adventure.",
     "tags": ["travel", "exploration", "adventure"],
     "time": "2024-05-26T23:04:37.000Z",
-    "comments_count": 19,
     "upvote_count": 65,
     "downvote_count": 4
   },
@@ -163,7 +152,6 @@
     "description": "Unlock the secrets of elegant code. Dive into algorithms, design patterns, and software architecture. Whether you're a seasoned developer or a curious learner, this blog is your forge for mastering the art of code.",
     "tags": ["programming", "software development", "coding"],
     "time": "2024-05-25T16:32:09.000Z",
-    "comments_count": 24,
     "upvote_count": 75,
     "downvote_count": 5
   },
@@ -177,7 +165,6 @@
     "description": "Feast your eyes on culinary masterpieces! From intricate cake designs to mouthwatering food photography, this blog celebrates the intersection of art and gastronomy.",
     "tags": ["food", "culinary art", "photography"],
     "time": "2024-05-24T22:53:41.000Z",
-    "comments_count": 16,
     "upvote_count": 55,
     "downvote_count": 3
   },
@@ -191,7 +178,6 @@
     "description": "Navigate the digital canvas with pixel-perfect precision. From UI/UX trends to responsive design, this blog equips designers and developers with the tools to create visually stunning experiences.",
     "tags": ["design", "web development", "user experience"],
     "time": "2024-05-24T04:12:56.000Z",
-    "comments_count": 21,
     "upvote_count": 90,
     "downvote_count": 7
   },
@@ -205,7 +191,6 @@
     "description": "Capture moments, freeze emotions, and paint with light. From breathtaking landscapes to intimate portraits, this blog celebrates the art of photography. Join me on a visual journey through the lens.",
     "tags": ["photography", "art", "visual storytelling"],
     "time": "2024-05-23T08:24:20.000Z",
-    "comments_count": 14,
     "upvote_count": 50,
     "downvote_count": 3
   }

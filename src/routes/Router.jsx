@@ -14,6 +14,7 @@ import AdminProfile from "../pages/AdminProfile";
 import ManageUsers from "../pages/ManageUsers";
 import ReportedComments from "../pages/ReportedComments";
 import Announcements from "../pages/Announcements";
+import Comments from "../pages/Comments";
 
 const Router = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ const Router = createBrowserRouter([
       {
         path: "my-posts",
         element: <MyPosts />,
+      },
+      {
+        path: "comments/:postId",
+        element: <Comments />,
       },
 
       // Admin Routes

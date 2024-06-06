@@ -5,10 +5,12 @@ import useAxios from "../hooks/useAxios";
 import Loading from "./../components/Loading";
 import { FaRegShareFromSquare } from "react-icons/fa6";
 import CommentSection from "../components/CommentSection";
+import useCommentsPost from "../hooks/useCommentsPost";
 
 const PostDetails = () => {
   const axiosFetch = useAxios();
   const { id } = useParams();
+  const { comments } = useCommentsPost(id);
   const {
     data: post,
     isLoading,
@@ -113,7 +115,9 @@ const PostDetails = () => {
           />
           <div>
             <p className="text-lg font-semibold text-gray-800">{author.name}</p>
-            <p className="text-sm text-gray-600">{time}</p>
+            <p className="text-sm text-gray-600">
+              {new Date(time).toLocaleDateString("en-UK")}
+            </p>
           </div>
         </div>
         <h1 className="text-3xl font-bold text-gray-800 mb-6">{title}</h1>
@@ -122,7 +126,7 @@ const PostDetails = () => {
           {tags.map((tag, index) => (
             <span
               key={index}
-              className="mr-2 mb-2 bg-blue-200 text-blue-800 text-xs font-medium px-3 py-1 rounded"
+              className="mr-2 mb-2 bg-lime-200 text-lime-700 text-xs font-medium px-3 py-1 rounded"
             >
               {tag}
             </span>
@@ -130,7 +134,7 @@ const PostDetails = () => {
         </div>
         <div className="flex items-center mb-8">
           <button className="mr-4 text-gray-600 hover:text-gray-800 focus:outline-none">
-            Comment ({comments_count})
+            Comment ({comments?.length || 0})
           </button>
           <div className="flex items-center">
             <svg
@@ -165,7 +169,7 @@ const PostDetails = () => {
             <span>{downvote_count}</span>
           </div>
         </div>
-        <CommentSection />
+        <CommentSection title={title} />
       </div>
     </div>
   );

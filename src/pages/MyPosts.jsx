@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useAxios from "../hooks/useAxios";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const MyPosts = () => {
   const { userPosts, isLoading } = useUserPosts();
@@ -79,9 +80,11 @@ const MyPosts = () => {
                     <span className="font-medium">{post.comments_count}</span>
                   </td>
                   <td className="py-3 px-6 text-center">
-                    <button className="mr-2 px-3 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition duration-200">
-                      <FaComment />
-                    </button>
+                    <Link to={`/dashboard/comments/${post._id}`}>
+                      <button className="mr-2 px-3 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition duration-200">
+                        <FaComment />
+                      </button>
+                    </Link>
                     <button
                       onClick={() => handleDelete(post._id)}
                       className="px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-700 transition duration-200"
