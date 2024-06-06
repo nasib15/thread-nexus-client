@@ -1,18 +1,51 @@
-import React, { useState } from "react";
+import React from "react";
 import { FaComment, FaTrashAlt } from "react-icons/fa";
-
-const mockPosts = [
-  { id: 1, title: "First Post", votes: 10, comments: 5 },
-  { id: 2, title: "Second Post", votes: 20, comments: 8 },
-  { id: 3, title: "Third Post", votes: 15, comments: 7 },
-];
+import useUserPosts from "./../hooks/useUserPosts";
+import Loading from "./../components/Loading";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import useAxios from "../hooks/useAxios";
+import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 const MyPosts = () => {
-  const [posts, setPosts] = useState(mockPosts);
+  const { userPosts, isLoading } = useUserPosts();
+  const axiosFetch = useAxios();
+  const queryClient = useQueryClient();
+
+  const { mutateAsync } = useMutation({
+    mutationFn: async (postId) => {
+      const { data } = await axiosFetch.delete(`/post/${postId}`);
+      return data;
+    },
+
+    onSuccess: () => {
+      toast.success("Post deleted successfully");
+      queryClient.invalidateQueries(["userPosts"]);
+    },
+  });
 
   const handleDelete = (postId) => {
-    setPosts(posts.filter((post) => post.id !== postId));
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await mutateAsync(postId);
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your post has been deleted.",
+          icon: "success",
+        });
+      }
+    });
   };
+
+  if (isLoading) return <Loading />;
 
   return (
     <div>
@@ -29,9 +62,9 @@ const MyPosts = () => {
               </tr>
             </thead>
             <tbody className="text-gray-600 text-sm font-light">
-              {posts.map((post) => (
+              {userPosts?.map((post) => (
                 <tr
-                  key={post.id}
+                  key={post._id}
                   className="border-b border-gray-200 hover:bg-gray-100"
                 >
                   <td className="py-3 px-6 text-left whitespace-nowrap">
@@ -40,17 +73,17 @@ const MyPosts = () => {
                     </div>
                   </td>
                   <td className="py-3 px-6 text-center">
-                    <span className="font-medium">{post.votes}</span>
+                    <span className="font-medium">{post.upvote_count}</span>
                   </td>
                   <td className="py-3 px-6 text-center">
-                    <span className="font-medium">{post.comments}</span>
+                    <span className="font-medium">{post.comments_count}</span>
                   </td>
                   <td className="py-3 px-6 text-center">
                     <button className="mr-2 px-3 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition duration-200">
                       <FaComment />
                     </button>
                     <button
-                      onClick={() => handleDelete(post.id)}
+                      onClick={() => handleDelete(post._id)}
                       className="px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-700 transition duration-200"
                     >
                       <FaTrashAlt />
