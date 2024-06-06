@@ -6,18 +6,26 @@ import { AuthContext } from "../providers/AuthProvider";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useAxios from "../hooks/useAxios";
 import toast from "react-hot-toast";
-import { comment } from "postcss";
+import BecomeMember from "../components/BecomeMember";
+import Loading from "./../components/Loading";
+import useUser from "../hooks/useUser";
+import useUserPosts from "../hooks/useUserPosts";
 
 const AddPost = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
   const [tags, setTags] = useState(null);
   const { user } = useContext(AuthContext);
   const axiosFetch = useAxios();
   const queryClient = useQueryClient();
+  const { userData } = useUser();
+  const { userPosts, isLoading } = useUserPosts();
+
+  // Add post mutation
   const { mutateAsync } = useMutation({
     mutationFn: async (postData) => {
       const { data } = await axiosFetch.post("/posts", postData);
@@ -61,7 +69,15 @@ const AddPost = () => {
       comments_count: 0,
     };
     await mutateAsync(postData);
+    setTags(null);
+    reset();
   };
+
+  if (isLoading) return <Loading />;
+
+  if (userData?.membership_status === "normal user" && userPosts?.length >= 5) {
+    return <BecomeMember />;
+  }
 
   return (
     <div>

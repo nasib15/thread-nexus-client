@@ -57,7 +57,7 @@ const PostSection = () => {
               {post.title}
             </h3>
             <div className="flex flex-wrap mt-2 mb-4">
-              {post.tags.map((tag, index) => (
+              {post?.tags?.map((tag, index) => (
                 <span
                   key={index}
                   className="bg-lime-200 text-lime-700 text-xs font-medium mr-2 px-2.5 py-0.5 rounded"

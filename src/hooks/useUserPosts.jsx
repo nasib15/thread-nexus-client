@@ -3,18 +3,18 @@ import { useContext } from "react";
 import useAxios from "./useAxios";
 import { AuthContext } from "../providers/AuthProvider";
 
-const useUser = () => {
+const useUserPosts = () => {
   const { user } = useContext(AuthContext);
   const axiosFetch = useAxios();
-  // Get user data
-  const { data: userData, isLoading } = useQuery({
-    queryKey: ["user", user?.email],
+  // Get post from individual user
+  const { data: userPosts, isLoading } = useQuery({
+    queryKey: ["userPosts", user?.email],
     queryFn: async () => {
-      const { data } = await axiosFetch(`/user/${user?.email}`);
+      const { data } = await axiosFetch(`/posts?email=${user?.email}`);
       return data;
     },
   });
-  return { userData, isLoading };
+  return { userPosts, isLoading };
 };
 
-export default useUser;
+export default useUserPosts;
