@@ -7,10 +7,12 @@ import { AuthContext } from "./../providers/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../hooks/useAxios";
 import Loading from "./Loading";
+import useUser from "../hooks/useUser";
 
 const Sidebar = () => {
   const { user } = useContext(AuthContext);
   const axiosFetch = useAxios();
+  const { userData, isLoading } = useUser();
 
   // Getting announcements
   const { data: announcements } = useQuery({
@@ -21,16 +23,9 @@ const Sidebar = () => {
     },
   });
 
-  // Check if user is admin
-  const { data: userRole, isLoading } = useQuery({
-    queryKey: ["user"],
-    queryFn: async () => {
-      const { data } = await axiosFetch(`/user/${user?.email}`);
-      return data;
-    },
-  });
-  let isAdmin = userRole?.user_role === "admin";
   if (isLoading) return <Loading />;
+
+  let isAdmin = userData?.user_role === "admin";
   return (
     <div>
       <header className="sticky top-0 inset-x-0 flex flex-wrap sm:justify-start sm:flex-nowrap z-[48] w-full bg-white border-b text-sm py-2.5 sm:py-4 lg:ps-64">

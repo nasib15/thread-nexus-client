@@ -1,5 +1,7 @@
 import React from "react";
 import { FaCrown, FaMedal } from "react-icons/fa";
+import useUser from "../hooks/useUser";
+import Loading from "../components/Loading";
 
 const user = {
   name: "John Doe",
@@ -30,6 +32,10 @@ const user = {
 };
 
 const UserProfile = () => {
+  const { userData, isLoading } = useUser();
+  const { name, email, image, membership_status } = userData;
+
+  if (isLoading) return <Loading />;
   return (
     <div>
       <div>
@@ -37,15 +43,14 @@ const UserProfile = () => {
           <div className="bg-gradient-to-r from-purple-500 to-blue-500 p-6">
             <div className="flex items-center">
               <img
-                src={user.avatar}
-                alt={`${user.name} avatar`}
+                src={image}
                 className="w-20 h-20 rounded-full border-4 border-white shadow-lg mr-4"
               />
               <div>
-                <h1 className="text-2xl font-bold text-white">{user.name}</h1>
-                <p className="text-gray-200">{user.email}</p>
-                <div className="flex mt-2">
-                  {user.isMember ? (
+                <h1 className="text-2xl font-bold text-white">{name}</h1>
+                <p className="text-gray-200">{email}</p>
+                <div className="mt-2">
+                  {membership_status === "member" ? (
                     <div className="flex items-center text-yellow-400">
                       <FaCrown className="w-6 h-6" />
                       <span className="ml-2 text-white">Gold Member</span>

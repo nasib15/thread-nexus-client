@@ -48,7 +48,9 @@ const PostSection = () => {
                 <p className="text-gray-900 font-medium leading-none">
                   {post.author.name}
                 </p>
-                <p className="text-gray-600 mt-1">{post.time}</p>
+                <p className="text-gray-600 mt-1">
+                  {new Date(post.time).toLocaleDateString("en-UK")}
+                </p>
               </div>
             </div>
             <h3 className="text-xl font-semibold text-gray-800">

@@ -5,10 +5,13 @@ import toast from "react-hot-toast";
 import logo from "/logo.png";
 import useAxios from "../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
+import Loading from "./Loading";
+import useUser from "../hooks/useUser";
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
   const axiosFetch = useAxios();
+  const { userData, isLoading } = useUser();
 
   // Fetch announcements
   const { data: announcements } = useQuery({
@@ -19,16 +22,9 @@ const Navbar = () => {
     },
   });
 
-  // Check if user is admin
-  const { data: userRole } = useQuery({
-    queryKey: ["user"],
-    queryFn: async () => {
-      const { data } = await axiosFetch(`/user/${user?.email}`);
-      return data;
-    },
-  });
+  if (isLoading) return <Loading />;
 
-  let isAdmin = userRole?.user_role === "admin";
+  let isAdmin = userData?.user_role === "admin";
 
   const handleLogout = async () => {
     try {

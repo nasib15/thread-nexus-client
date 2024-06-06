@@ -1,23 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import useAxios from "../hooks/useAxios";
-import { AuthContext } from "../providers/AuthProvider";
+import useUser from "../hooks/useUser";
+import Loading from "../components/Loading";
 
 const AdminProfile = () => {
   const [tags, setTags] = useState([]);
   const [newTag, setNewTag] = useState("");
-  const { user } = useContext(AuthContext);
+  const { userData, isLoading } = useUser();
   const axiosFetch = useAxios();
-
-  // getting admin data
-  const { data: adminData } = useQuery({
-    queryKey: ["admin"],
-    queryFn: async () => {
-      const { data } = await axiosFetch(`/user/${user.email}`);
-      return data;
-    },
-  });
 
   // getting post data
   const { data: postsData } = useQuery({
@@ -46,6 +38,8 @@ const AdminProfile = () => {
   //   },
   // });
 
+  if (isLoading) return <Loading />;
+
   const handleAddTag = (e) => {
     e.preventDefault();
   };
@@ -58,13 +52,13 @@ const AdminProfile = () => {
         <h2 className="text-2xl font-bold mb-6 text-gray-800">Admin Profile</h2>
         <div className="flex items-center mb-6">
           <img
-            src={adminData?.image}
+            src={userData?.image}
             alt="Admin"
             className="size-20 rounded-full mr-4"
           />
           <div>
-            <h3 className="text-xl font-semibold">{adminData?.name}</h3>
-            <p className="text-gray-600">{adminData?.email}</p>
+            <h3 className="text-xl font-semibold">{userData?.name}</h3>
+            <p className="text-gray-600">{userData?.email}</p>
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
