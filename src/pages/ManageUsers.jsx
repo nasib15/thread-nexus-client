@@ -68,7 +68,7 @@ const ManageUsers = () => {
               </tr>
             </thead>
             <tbody>
-              {usersData.map((user) => (
+              {usersData?.map((user) => (
                 <tr
                   key={user._id}
                   className="bg-gray-100 text-gray-700 border-b border-gray-200"
