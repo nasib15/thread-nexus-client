@@ -1,5 +1,7 @@
 // ManageUsers.js
+import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
+import useAxios from "../hooks/useAxios";
 
 const ManageUsers = () => {
   const [users, setUsers] = useState([
@@ -32,6 +34,16 @@ const ManageUsers = () => {
       isMember: false,
     },
   ]);
+  const axiosFetch = useAxios();
+
+  // getting users data
+  const { data: usersData } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const { data } = await axiosFetch(`/users`);
+      return data;
+    },
+  });
 
   const makeAdmin = (userId) => {
     setUsers(
@@ -56,18 +68,20 @@ const ManageUsers = () => {
               </tr>
             </thead>
             <tbody>
-              {users.map((user) => (
+              {usersData.map((user) => (
                 <tr
-                  key={user.id}
+                  key={user._id}
                   className="bg-gray-100 text-gray-700 border-b border-gray-200"
                 >
                   <td className="py-4 px-6 text-center">{user.name}</td>
                   <td className="py-4 px-6 text-center">{user.email}</td>
                   <td className="py-4 px-6 text-center">
-                    {user.isMember ? "Member" : "Non-Member"}
+                    {user.membership_status === "member"
+                      ? "Member"
+                      : "Normal User"}
                   </td>
                   <td className="py-4 px-6 text-center">
-                    {user.isAdmin ? (
+                    {user.user_role === "admin" ? (
                       <span className="text-green-600 font-bold">Admin</span>
                     ) : (
                       <button

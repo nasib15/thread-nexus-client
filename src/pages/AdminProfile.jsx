@@ -29,6 +29,15 @@ const AdminProfile = () => {
     },
   });
 
+  // Getting comments data
+  const { data: commentsData } = useQuery({
+    queryKey: ["comments"],
+    queryFn: async () => {
+      const { data } = await axiosFetch(`/comments`);
+      return data;
+    },
+  });
+
   // getting comment data
   // const { data: adminData } = useQuery({
   //   queryKey: ["admin"],
@@ -63,16 +72,16 @@ const AdminProfile = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
           <div className="p-4 bg-gray-200 rounded-lg shadow-md">
+            <h4 className="text-lg font-semibold">Users</h4>
+            <p className="text-2xl">{usersData?.length}</p>
+          </div>
+          <div className="p-4 bg-gray-200 rounded-lg shadow-md">
             <h4 className="text-lg font-semibold">Posts</h4>
             <p className="text-2xl">{postsData?.length}</p>
           </div>
-          {/* <div className="p-4 bg-gray-200 rounded-lg shadow-md">
-            <h4 className="text-lg font-semibold">Comments</h4>
-            <p className="text-2xl">{admin.comments}</p>
-          </div> */}
           <div className="p-4 bg-gray-200 rounded-lg shadow-md">
-            <h4 className="text-lg font-semibold">Users</h4>
-            <p className="text-2xl">{usersData?.length}</p>
+            <h4 className="text-lg font-semibold">Comments</h4>
+            <p className="text-2xl">{commentsData?.length}</p>
           </div>
         </div>
         <div className="mb-6">

@@ -6,7 +6,6 @@ import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import useAxios from "../hooks/useAxios";
 import toast from "react-hot-toast";
-import { comment } from "postcss";
 
 const Comments = () => {
   const { postId } = useParams();
