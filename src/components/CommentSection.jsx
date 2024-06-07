@@ -27,6 +27,16 @@ const CommentSection = ({ title }) => {
     },
   });
 
+  const { mutateAsync: commentAsync } = useMutation({
+    mutationFn: async () => {
+      const { data } = await axiosFetch.patch(`post/${id}`);
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["posts"]);
+    },
+  });
+
   const handleSubmitComment = async (e) => {
     e.preventDefault();
     const commentData = {
@@ -35,13 +45,14 @@ const CommentSection = ({ title }) => {
       author: {
         name: user.displayName,
         email: user.email,
-        photoURL: user.photoURL,
+        image: user.photoURL,
       },
       title,
       time: new Date().toISOString(),
     };
 
     await mutateAsync(commentData);
+    await commentAsync();
     e.target.reset();
   };
 
@@ -73,7 +84,7 @@ const CommentSection = ({ title }) => {
                 <div className="flex-shrink-0">
                   <img
                     className="size-10 rounded-full"
-                    src={comment?.author?.photoURL}
+                    src={comment?.author?.image}
                   />
                 </div>
                 <div>

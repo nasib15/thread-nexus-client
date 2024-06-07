@@ -1,14 +1,31 @@
+import { useParams } from "react-router-dom";
+import useCommentsPost from "../hooks/useCommentsPost";
+import Loading from "../components/Loading";
+import Select from "react-select";
+import { useState } from "react";
+
 const Comments = () => {
-  const comments = [
-    { id: 1, email: "user1@example.com", text: "This is a great post!" },
-    {
-      id: 2,
-      email: "user2@example.com",
-      text: "I found this very helpful, thanks!",
-    },
-    { id: 3, email: "user3@example.com", text: "Not sure I agree with this." },
-    { id: 4, email: "user4@example.com", text: "This is spam!" },
+  const { postId } = useParams();
+  const { comments, isLoading } = useCommentsPost(postId);
+  const [feedback, setFeedback] = useState("");
+  const [report, setReport] = useState(true);
+
+  const options = [
+    { value: "spam", label: "Spam" },
+    { value: "inappropriate", label: "Inappropriate" },
+    { value: "violence", label: "Violence" },
   ];
+
+  const handleChange = (option) => {
+    if (option) {
+      setFeedback(option);
+      setReport(false);
+    }
+  };
+
+  console.log(feedback);
+
+  if (isLoading) return <Loading />;
 
   return (
     <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
@@ -79,69 +96,67 @@ const Comments = () => {
                 </thead>
 
                 <tbody className="divide-y divide-gray-200 dark:divide-neutral-700">
-                  <tr>
-                    <td className="size-px whitespace-nowrap">
-                      <div className="ps-6 py-3">
-                        <label
-                          htmlFor="hs-at-with-checkboxes-1"
-                          className="flex justify-center items-center"
-                        >
-                          <div>1</div>
-                          <span className="sr-only">Checkbox</span>
-                        </label>
-                      </div>
-                    </td>
-                    <td className="size-px whitespace-nowrap">
-                      <div className="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3">
-                        <div className="flex justify-center items-center gap-x-3">
-                          <img
-                            className="inline-block size-[38px] rounded-full"
-                            src=""
-                            alt="Image Description"
-                          />
-                          <div>
-                            <span className="block text-sm font-semibold text-gray-800 dark:text-neutral-200">
-                              Christina Bersh
-                            </span>
-                            <span className="block text-sm text-gray-500 dark:text-neutral-500">
-                              christina@site.com
-                            </span>
+                  {comments?.map((comment, index) => (
+                    <tr key={comment._id}>
+                      <td className="size-px whitespace-nowrap">
+                        <div className="ps-6 py-3">
+                          <label
+                            htmlFor="hs-at-with-checkboxes-1"
+                            className="flex justify-center items-center"
+                          >
+                            <div>{index + 1}</div>
+                          </label>
+                        </div>
+                      </td>
+                      <td className="size-px whitespace-nowrap">
+                        <div className="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3">
+                          <div className="flex justify-center items-center gap-x-3">
+                            <img
+                              className="inline-block size-[38px] rounded-full"
+                              src={comment.author.image}
+                              alt="Image Description"
+                            />
+                            <div>
+                              <span className="block text-sm font-semibold text-gray-800 dark:text-neutral-200">
+                                {comment.author.name}
+                              </span>
+                              <span className="block text-sm text-gray-500 dark:text-neutral-500">
+                                {comment.author.email}
+                              </span>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </td>
-                    <td className="h-px w-72 whitespace-nowrap">
-                      <div className="px-6 py-3 flex justify-center">
-                        <span className="block text-sm text-gray-500 dark:text-neutral-500">
-                          Human resources
-                        </span>
-                      </div>
-                    </td>
-                    <td className="size-px whitespace-nowrap">
-                      <div className="px-6 py-3 flex justify-center items-center">
-                        <span className="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs font-medium bg-teal-100 text-teal-800 rounded-full dark:bg-teal-500/10 dark:text-teal-500">
-                          <svg
-                            className="size-2.5"
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            fill="currentColor"
-                            viewBox="0 0 16 16"
+                      </td>
+                      <td className="h-px w-72 whitespace-nowrap">
+                        <div className="px-6 py-3 flex justify-center">
+                          <span className="block text-sm text-gray-500 dark:text-neutral-500">
+                            {comment?.comment.slice(0, 20)}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="size-px whitespace-nowrap">
+                        <div className="px-6 py-3 flex justify-center items-center">
+                          <Select
+                            isClearable
+                            options={options}
+                            className="w-full "
+                            placeholder="Select a feedback"
+                            onChange={handleChange}
+                          />
+                        </div>
+                      </td>
+                      <td className="size-px whitespace-nowrap">
+                        <div className="px-6 py-3 flex items-center justify-center">
+                          <button
+                            className={`inline-flex  items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-60 disabled:cursor-not-allowed`}
+                            disabled={report}
                           >
-                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-                          </svg>
-                          Active
-                        </span>
-                      </div>
-                    </td>
-                    <td className="size-px whitespace-nowrap">
-                      <div className="px-6 py-3 flex items-center justify-center">
-                        <button className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                          Resolve
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
+                            Report
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
 
@@ -149,7 +164,7 @@ const Comments = () => {
                 <div>
                   <p className="text-sm text-gray-600 dark:text-neutral-400">
                     <span className="font-semibold text-gray-800 dark:text-neutral-200">
-                      12
+                      {comments?.length}
                     </span>{" "}
                     comments
                   </p>

@@ -34,7 +34,6 @@ const PostDetails = () => {
     description,
     tags,
     time,
-    comments_count,
     upvote_count,
     downvote_count,
     author,

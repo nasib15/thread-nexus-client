@@ -64,9 +64,9 @@ const AddPost = () => {
       description,
       tags: tags?.map((tag) => tag.value),
       time,
+      comments_count: 0,
       upvote_count: parseInt(upvote),
       downvote_count: parseInt(downvote),
-      comments_count: 0,
     };
     await mutateAsync(postData);
     setTags(null);
