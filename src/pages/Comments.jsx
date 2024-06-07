@@ -74,7 +74,7 @@ const Comments = () => {
                 </div>
               </div>
 
-              <table className="min-w-full divide-y divide-gray-200 dark:divide-neutral-700 ">
+              <table className="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
                 <thead className="bg-gray-50 dark:bg-neutral-800">
                   <tr>
                     <th scope="col" className="ps-6 py-3 text-start">
@@ -125,7 +125,7 @@ const Comments = () => {
                   </tr>
                 </thead>
 
-                <tbody className="divide-y divide-gray-200 dark:divide-neutral-700">
+                <tbody className="divide-y divide-gray-200 dark:divide-neutral-700 ">
                   {comments?.map((comment, index) => (
                     <tr key={comment._id}>
                       <td className="size-px whitespace-nowrap">
@@ -164,27 +164,29 @@ const Comments = () => {
                               <p className="whitespace-no-wrap">
                                 {comment?.comment.substring(0, 20)}...
                                 <button
-                                  className="text-blue-500 hover:text-blue-700 cursor-pointer"
                                   onClick={() =>
                                     document
-                                      .getElementById("my_modal_3")
+                                      .getElementById("my_modal_5")
                                       .showModal()
                                   }
+                                  className="text-blue-500 hover:underline hover:text-blue-700"
                                 >
                                   read more
                                 </button>
-                                <dialog id="my_modal_3" className="modal">
+                                <dialog
+                                  id="my_modal_5"
+                                  className="modal text-wrap"
+                                >
                                   <div className="modal-box w-11/12 max-w-5xl">
-                                    <form method="dialog">
-                                      <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                                        ✕
-                                      </button>
-                                    </form>
                                     <h3 className="font-bold text-lg">
                                       Comment
                                     </h3>
-
-                                    <p className="py-4">{comment.comment}</p>
+                                    <p className="py-4">{comment?.comment}</p>
+                                    <div className="modal-action">
+                                      <form method="dialog">
+                                        <button className="btn">Close</button>
+                                      </form>
+                                    </div>
                                   </div>
                                 </dialog>
                               </p>
