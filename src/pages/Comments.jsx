@@ -3,12 +3,28 @@ import useCommentsPost from "../hooks/useCommentsPost";
 import Loading from "../components/Loading";
 import Select from "react-select";
 import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import useAxios from "../hooks/useAxios";
+import toast from "react-hot-toast";
+import { comment } from "postcss";
 
 const Comments = () => {
   const { postId } = useParams();
   const { comments, isLoading } = useCommentsPost(postId);
   const [feedback, setFeedback] = useState("");
   const [report, setReport] = useState(true);
+  const axiosFetch = useAxios();
+
+  const { mutateAsync } = useMutation({
+    mutationFn: async (reportedData) => {
+      const { data } = await axiosFetch.post("/reports", reportedData);
+      return data;
+    },
+    onSuccess: () => {
+      toast.success("Comment reported successfully");
+      setReport(true);
+    },
+  });
 
   const options = [
     { value: "spam", label: "Spam" },
@@ -23,7 +39,21 @@ const Comments = () => {
     }
   };
 
-  console.log(feedback);
+  const handleReport = async (comment) => {
+    const reportedData = {
+      feedback: feedback.value,
+      postId,
+      comment: comment.comment,
+      commentId: comment._id,
+      status: "reported",
+      author: {
+        name: comment?.author?.name,
+        email: comment?.author?.email,
+        image: comment?.author?.image,
+      },
+    };
+    await mutateAsync(reportedData);
+  };
 
   if (isLoading) return <Loading />;
 
@@ -44,7 +74,7 @@ const Comments = () => {
                 </div>
               </div>
 
-              <table className="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
+              <table className="min-w-full divide-y divide-gray-200 dark:divide-neutral-700 ">
                 <thead className="bg-gray-50 dark:bg-neutral-800">
                   <tr>
                     <th scope="col" className="ps-6 py-3 text-start">
@@ -130,7 +160,37 @@ const Comments = () => {
                       <td className="h-px w-72 whitespace-nowrap">
                         <div className="px-6 py-3 flex justify-center">
                           <span className="block text-sm text-gray-500 dark:text-neutral-500">
-                            {comment?.comment.slice(0, 20)}
+                            {comment?.comment.length > 20 ? (
+                              <p className="whitespace-no-wrap">
+                                {comment?.comment.substring(0, 20)}...
+                                <button
+                                  className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                                  onClick={() =>
+                                    document
+                                      .getElementById("my_modal_3")
+                                      .showModal()
+                                  }
+                                >
+                                  read more
+                                </button>
+                                <dialog id="my_modal_3" className="modal">
+                                  <div className="modal-box w-11/12 max-w-5xl">
+                                    <form method="dialog">
+                                      <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                                        ✕
+                                      </button>
+                                    </form>
+                                    <h3 className="font-bold text-lg">
+                                      Comment
+                                    </h3>
+
+                                    <p className="py-4">{comment.comment}</p>
+                                  </div>
+                                </dialog>
+                              </p>
+                            ) : (
+                              comment.comment
+                            )}
                           </span>
                         </div>
                       </td>
@@ -139,7 +199,7 @@ const Comments = () => {
                           <Select
                             isClearable
                             options={options}
-                            className="w-full "
+                            className="w-full"
                             placeholder="Select a feedback"
                             onChange={handleChange}
                           />
@@ -148,6 +208,7 @@ const Comments = () => {
                       <td className="size-px whitespace-nowrap">
                         <div className="px-6 py-3 flex items-center justify-center">
                           <button
+                            onClick={() => handleReport(comment)}
                             className={`inline-flex  items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-60 disabled:cursor-not-allowed`}
                             disabled={report}
                           >
@@ -161,7 +222,7 @@ const Comments = () => {
               </table>
 
               <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200 dark:border-neutral-700">
-                <div>
+                <div className="">
                   <p className="text-sm text-gray-600 dark:text-neutral-400">
                     <span className="font-semibold text-gray-800 dark:text-neutral-200">
                       {comments?.length}
