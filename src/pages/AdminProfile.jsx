@@ -4,39 +4,15 @@ import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import useAxios from "../hooks/useAxios";
 import useUser from "../hooks/useUser";
 import Loading from "../components/Loading";
+import useFullSiteData from "../hooks/useFullSiteData";
 
 const AdminProfile = () => {
   const [tags, setTags] = useState([]);
   const [newTag, setNewTag] = useState("");
   const { userData, isLoading } = useUser();
   const axiosFetch = useAxios();
-
-  // getting post data
-  const { data: postsData } = useQuery({
-    queryKey: ["posts"],
-    queryFn: async () => {
-      const { data } = await axiosFetch(`/posts`);
-      return data;
-    },
-  });
-
-  // getting users data
-  const { data: usersData } = useQuery({
-    queryKey: ["users"],
-    queryFn: async () => {
-      const { data } = await axiosFetch(`/users`);
-      return data;
-    },
-  });
-
-  // Getting comments data
-  const { data: commentsData } = useQuery({
-    queryKey: ["comments"],
-    queryFn: async () => {
-      const { data } = await axiosFetch(`/comments`);
-      return data;
-    },
-  });
+  const sitesData = useFullSiteData();
+  const { postsData, usersData, commentsData } = sitesData;
 
   // getting comment data
   // const { data: adminData } = useQuery({
@@ -52,6 +28,12 @@ const AdminProfile = () => {
   const handleAddTag = (e) => {
     e.preventDefault();
   };
+
+  const data = [
+    { name: "Users", value: usersData?.length },
+    { name: "Posts", value: postsData?.length },
+    { name: "Comments", value: commentsData?.length },
+  ];
 
   const COLORS = ["#FF6384", "#36A2EB", "#FFCE56"];
 
@@ -87,18 +69,17 @@ const AdminProfile = () => {
         <div className="mb-6">
           <h3 className="text-xl font-bold mb-4">Site Statistics</h3>
           <div className="w-full md:w-1/2 mx-auto">
-            {/* <PieChart width={400} height={400}>
+            <PieChart width={400} height={400}>
               <Pie
-                data={adminData}
+                data={data}
                 cx={200}
                 cy={200}
                 labelLine={false}
-                label={({ name, value }) => `${name}: ${value}`}
                 outerRadius={150}
                 fill="#8884d8"
                 dataKey="value"
               >
-                {adminData.map((entry, index) => (
+                {data.map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
                     fill={COLORS[index % COLORS.length]}
@@ -107,7 +88,7 @@ const AdminProfile = () => {
               </Pie>
               <Tooltip />
               <Legend />
-            </PieChart> */}
+            </PieChart>
           </div>
         </div>
         <div>
