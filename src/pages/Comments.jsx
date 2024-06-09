@@ -2,10 +2,11 @@ import { useParams } from "react-router-dom";
 import useCommentsPost from "../hooks/useCommentsPost";
 import Loading from "../components/Loading";
 import Select from "react-select";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import useAxios from "../hooks/useAxios";
 import toast from "react-hot-toast";
+import { AuthContext } from "../providers/AuthProvider";
 
 const Comments = () => {
   const { postId } = useParams();
@@ -13,6 +14,7 @@ const Comments = () => {
   const [feedback, setFeedback] = useState("");
   const [report, setReport] = useState(true);
   const axiosFetch = useAxios();
+  const { user } = useContext(AuthContext);
 
   const { mutateAsync } = useMutation({
     mutationFn: async (reportedData) => {
@@ -40,11 +42,16 @@ const Comments = () => {
 
   const handleReport = async (comment) => {
     const reportedData = {
-      feedback: feedback.value,
+      feedback: feedback?.value,
       postId,
-      comment: comment.comment,
-      commentId: comment._id,
+      comment: comment?.comment,
+      commentId: comment?._id,
       status: "reported",
+      reportedBy: {
+        name: user?.displayName,
+        email: user?.email,
+      },
+      time: new Date().toISOString(),
       author: {
         name: comment?.author?.name,
         email: comment?.author?.email,
@@ -137,8 +144,8 @@ const Comments = () => {
                           </label>
                         </div>
                       </td>
-                      <td className="size-px whitespace-nowrap">
-                        <div className="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3">
+                      <td className="size-px whitespace-nowrap ">
+                        <div className="ps-6 pe-6 py-3">
                           <div className="flex justify-center items-center gap-x-3">
                             <img
                               className="inline-block size-[38px] rounded-full"
@@ -157,7 +164,7 @@ const Comments = () => {
                         </div>
                       </td>
                       <td className="h-px w-72 whitespace-nowrap">
-                        <div className="px-6 py-3 flex justify-center">
+                        <div className=" py-3 flex justify-center items-center">
                           <span className="block text-sm text-gray-500 dark:text-neutral-500">
                             {comment?.comment.length > 20 ? (
                               <p className="whitespace-no-wrap">
@@ -203,6 +210,8 @@ const Comments = () => {
                             className="w-full"
                             placeholder="Select a feedback"
                             onChange={handleChange}
+                            menuPosition="fixed"
+                            menuPlacement="auto"
                           />
                         </div>
                       </td>

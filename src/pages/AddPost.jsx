@@ -133,7 +133,7 @@ const AddPost = () => {
               isMulti
               isClearable
               options={options}
-              className="w-full "
+              className="w-full"
               placeholder="Select a tag"
               onChange={handleChange}
             />
