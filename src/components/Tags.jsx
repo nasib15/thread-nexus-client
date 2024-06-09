@@ -1,19 +1,8 @@
 import React from "react";
-
-const tags = [
-  "Technology",
-  "Health",
-  "Science",
-  "Education",
-  "Travel",
-  "Food",
-  "Lifestyle",
-  "Finance",
-  "Sports",
-  "Entertainment",
-];
+import useTags from "../hooks/useTags";
 
 const Tags = () => {
+  const { tags } = useTags();
   const handleTagClick = (tag) => {
     // Redirect to a page or perform a search with the tag
     console.log(`Searching for posts with tag: ${tag}`);
@@ -28,13 +17,13 @@ const Tags = () => {
         </p>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-10">
-        {tags.map((tag, index) => (
+        {tags?.map((tag, index) => (
           <button
             key={index}
             className="bg-lime-200 text-lime-700 px-4 py-2 rounded-lg hover:bg-lime-300 focus:outline-none"
             onClick={() => handleTagClick(tag)}
           >
-            {tag}
+            {tag?.name}
           </button>
         ))}
       </div>

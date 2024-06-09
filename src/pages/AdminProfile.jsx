@@ -1,27 +1,17 @@
-import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import useAxios from "../hooks/useAxios";
 import useUser from "../hooks/useUser";
 import Loading from "../components/Loading";
 import useFullSiteData from "../hooks/useFullSiteData";
+import useTags from "../hooks/useTags";
 
 const AdminProfile = () => {
-  const [tags, setTags] = useState([]);
-  const [newTag, setNewTag] = useState("");
+  const { tags } = useTags();
   const { userData, isLoading } = useUser();
   const axiosFetch = useAxios();
   const sitesData = useFullSiteData();
   const { postsData, usersData, commentsData } = sitesData;
-
-  // getting comment data
-  // const { data: adminData } = useQuery({
-  //   queryKey: ["admin"],
-  //   queryFn: async () => {
-  //     const { data } = await axiosFetch(`/user/${user.email}`);
-  //     return data;
-  //   },
-  // });
+  console.log(tags);
 
   if (isLoading) return <Loading />;
 
@@ -96,25 +86,31 @@ const AdminProfile = () => {
           <form onSubmit={handleAddTag} className="flex items-center">
             <input
               type="text"
-              value={newTag}
-              onChange={(e) => setNewTag(e.target.value)}
+              // value={newTag}
+              // onChange={(e) => setNewTag(e.target.value)}
               className="flex-1 p-2 border rounded-lg mr-2"
               placeholder="Enter new tag"
             />
             <button
               type="submit"
-              className="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition duration-200"
+              className="p-2 bg-lime-400 text-neutral-800 rounded-lg hover:bg-lime-500 transition duration-200"
             >
               Add Tag
             </button>
           </form>
           <div className="mt-4">
             <h4 className="text-lg font-semibold">Current Tags:</h4>
-            <ul className="list-disc list-inside">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-2">
               {tags.map((tag, index) => (
-                <li key={index}>{tag}</li>
+                <button
+                  key={index}
+                  className="bg-lime-200 text-lime-700 px-4 py-2 rounded-lg hover:bg-lime-300 focus:outline-none"
+                  // onClick={() => handleTagClick(tag)}
+                >
+                  {tag?.name}
+                </button>
               ))}
-            </ul>
+            </div>
           </div>
         </div>
       </div>
