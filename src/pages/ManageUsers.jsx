@@ -1,40 +1,11 @@
 // ManageUsers.js
-import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import useAxios from "../hooks/useAxios";
+import toast from "react-hot-toast";
 
 const ManageUsers = () => {
-  const [users, setUsers] = useState([
-    {
-      id: 1,
-      name: "John Doe",
-      email: "john.doe@example.com",
-      isAdmin: false,
-      isMember: true,
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      email: "jane.smith@example.com",
-      isAdmin: false,
-      isMember: false,
-    },
-    {
-      id: 3,
-      name: "Alice Johnson",
-      email: "alice.johnson@example.com",
-      isAdmin: true,
-      isMember: true,
-    },
-    {
-      id: 4,
-      name: "Bob Brown",
-      email: "bob.brown@example.com",
-      isAdmin: false,
-      isMember: false,
-    },
-  ]);
   const axiosFetch = useAxios();
+  const queryClient = useQueryClient();
 
   // getting users data
   const { data: usersData } = useQuery({
@@ -45,13 +16,20 @@ const ManageUsers = () => {
     },
   });
 
-  const makeAdmin = (userId) => {
-    setUsers(
-      users.map((user) =>
-        user.id === userId ? { ...user, isAdmin: true } : user
-      )
-    );
-  };
+  // function to make user admin
+  const { mutateAsync } = useMutation({
+    mutationFn: async (userData) => {
+      const { data } = await axiosFetch.patch(`/user/${userData.email}`, {
+        membership_status: userData.member,
+        user_role: "admin",
+      });
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["users"]);
+      toast.success("User is now an admin");
+    },
+  });
 
   return (
     <div>
@@ -85,7 +63,13 @@ const ManageUsers = () => {
                       <span className="text-green-600 font-bold">Admin</span>
                     ) : (
                       <button
-                        onClick={() => makeAdmin(user.id)}
+                        onClick={async () => {
+                          const data = {
+                            email: user?.email,
+                            member: user?.membership_status,
+                          };
+                          await mutateAsync(data);
+                        }}
                         className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200"
                       >
                         Make Admin

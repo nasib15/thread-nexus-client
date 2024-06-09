@@ -4,6 +4,8 @@ import toast from "react-hot-toast";
 import useAxios from "./../hooks/useAxios";
 import { useMutation } from "@tanstack/react-query";
 import { AuthContext } from "./../providers/AuthProvider";
+import useUser from "./../hooks/useUser";
+import Loading from "./Loading";
 
 const CheckoutForm = () => {
   const stripe = useStripe();
@@ -14,6 +16,7 @@ const CheckoutForm = () => {
   const { user } = useContext(AuthContext);
   const axiosFetch = useAxios();
   const price = 10;
+  const { userData, isLoading } = useUser(user?.email);
 
   // Patching user role in the database
   const { mutateAsync } = useMutation({
@@ -36,6 +39,8 @@ const CheckoutForm = () => {
         setClientSecret(res.data.clientSecret);
       });
   }, [axiosFetch]);
+
+  if (isLoading) return <Loading />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -84,6 +89,7 @@ const CheckoutForm = () => {
         // Patching user role in the database
         await mutateAsync({
           membership_status: "member",
+          user_role: userData?.user_role,
         });
       }
     }
