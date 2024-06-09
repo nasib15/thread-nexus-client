@@ -4,14 +4,18 @@ import { useQuery } from "@tanstack/react-query";
 const useReports = () => {
   const axiosFetch = useAxios();
   // Get all reports
-  const { data: reports, isLoading } = useQuery({
+  const {
+    data: reports,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["reports"],
     queryFn: async () => {
       const { data } = await axiosFetch("/reports");
       return data;
     },
   });
-  return { reports, isLoading };
+  return { reports, isLoading, refetch };
 };
 
 export default useReports;
