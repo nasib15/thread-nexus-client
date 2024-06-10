@@ -15,6 +15,8 @@ import ManageUsers from "../pages/ManageUsers";
 import ReportedComments from "../pages/ReportedComments";
 import Announcements from "../pages/Announcements";
 import Comments from "../pages/Comments";
+import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
 
 const Router = createBrowserRouter([
   {
@@ -32,7 +34,11 @@ const Router = createBrowserRouter([
       },
       {
         path: "/membership",
-        element: <Membership />,
+        element: (
+          <PrivateRoute>
+            <Membership />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/login",
@@ -46,7 +52,11 @@ const Router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard></Dashboard>,
+    element: (
+      <PrivateRoute>
+        <Dashboard></Dashboard>
+      </PrivateRoute>
+    ),
     errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
@@ -69,19 +79,35 @@ const Router = createBrowserRouter([
       // Admin Routes
       {
         path: "admin-profile",
-        element: <AdminProfile />,
+        element: (
+          <AdminRoute>
+            <AdminProfile />
+          </AdminRoute>
+        ),
       },
       {
         path: "manage-users",
-        element: <ManageUsers />,
+        element: (
+          <AdminRoute>
+            <ManageUsers />
+          </AdminRoute>
+        ),
       },
       {
         path: "reported-comments",
-        element: <ReportedComments />,
+        element: (
+          <AdminRoute>
+            <ReportedComments />
+          </AdminRoute>
+        ),
       },
       {
         path: "announcements",
-        element: <Announcements />,
+        element: (
+          <AdminRoute>
+            <Announcements />
+          </AdminRoute>
+        ),
       },
     ],
   },
