@@ -1,22 +1,36 @@
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
-// import useAxios from "../hooks/useAxios";
+import useAxios from "../hooks/useAxios";
 import useUser from "../hooks/useUser";
 import Loading from "../components/Loading";
 import useFullSiteData from "../hooks/useFullSiteData";
 import useTags from "../hooks/useTags";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 const AdminProfile = () => {
   const { tags } = useTags();
   const { userData, isLoading } = useUser();
-  // const axiosFetch = useAxios();
+  const axiosFetch = useAxios();
   const sitesData = useFullSiteData();
   const { postsData, usersData, commentsData } = sitesData;
-  console.log(tags);
+  const queryClient = useQueryClient();
+  const { mutateAsync } = useMutation({
+    mutationFn: async (tag) => {
+      const { data } = await axiosFetch.post("/tags", { name: tag });
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["tags"]);
+      toast.success("Tag added successfully");
+    },
+  });
 
   if (isLoading) return <Loading />;
 
-  const handleAddTag = (e) => {
+  const handleAddTag = async (e) => {
     e.preventDefault();
+    await mutateAsync(e.target.tag.value);
+    e.target.reset();
   };
 
   const data = [
@@ -85,9 +99,8 @@ const AdminProfile = () => {
           <h3 className="text-xl font-bold mb-4">Add Tags</h3>
           <form onSubmit={handleAddTag} className="flex items-center">
             <input
+              name="tag"
               type="text"
-              // value={newTag}
-              // onChange={(e) => setNewTag(e.target.value)}
               className="flex-1 p-2 border rounded-lg mr-2"
               placeholder="Enter new tag"
             />
