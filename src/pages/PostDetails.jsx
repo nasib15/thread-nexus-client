@@ -7,6 +7,14 @@ import { FaRegShareFromSquare } from "react-icons/fa6";
 import CommentSection from "../components/CommentSection";
 import useCommentsPost from "../hooks/useCommentsPost";
 import toast from "react-hot-toast";
+import {
+  FacebookIcon,
+  FacebookShareButton,
+  TelegramIcon,
+  TelegramShareButton,
+  TwitterIcon,
+  TwitterShareButton,
+} from "react-share";
 
 const PostDetails = () => {
   const axiosFetch = useAxios();
@@ -40,6 +48,8 @@ const PostDetails = () => {
     downvote_count,
     author,
   } = post;
+
+  const url = `https://thread-nexus.web.app/post/${id}`;
 
   const handleClick = async (button) => {
     if (button === "upvote") {
@@ -86,9 +96,24 @@ const PostDetails = () => {
           </Link>
           <div className="space-x-3 flex items-center">
             <button className="text-gray-600 hover:text-gray-800 focus:outline-none">
-              <div className="flex items-center gap-1">
-                <FaRegShareFromSquare />
-                Share
+              <div className="flex items-center gap-3">
+                {/* <FaRegShareFromSquare />
+                Share */}
+                <FacebookShareButton
+                  url={`https://thread-nexus.web.app/post/${id}`}
+                >
+                  <FacebookIcon size={32} round={true} />
+                </FacebookShareButton>
+                <TelegramShareButton
+                  url={`https://thread-nexus.web.app/post/${id}`}
+                >
+                  <TelegramIcon size={32} round={true} />
+                </TelegramShareButton>
+                <TwitterShareButton
+                  url={`https://thread-nexus.web.app/post/${id}`}
+                >
+                  <TwitterIcon size={32} round={true} />
+                </TwitterShareButton>
               </div>
             </button>
             <button
