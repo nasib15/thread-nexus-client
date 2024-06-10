@@ -30,7 +30,7 @@ const Announcement = () => {
         <div className="grid gap-4 mt-10">
           {announcements?.map((announcement) => (
             <div
-              key={announcement.id}
+              key={announcement._id}
               className="bg-white p-6 rounded-lg shadow-lg hover:bg-gray-100 cursor-pointer transition transform hover:-translate-y-1 hover:shadow-xl"
             >
               <h3 className="text-xl font-semibold text-gray-800">

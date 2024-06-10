@@ -10,12 +10,14 @@ import {
   updateProfile,
 } from "firebase/auth";
 import auth from "../firebase/firebase.config";
+import useAxios from "../hooks/useAxios";
 
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const axiosFetch = useAxios();
 
   //   create user
   const createUser = (email, password) => {
@@ -53,12 +55,23 @@ const AuthProvider = ({ children }) => {
 
   //   onAuthStateChanged
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
-      setLoading(false);
+      if (currentUser) {
+        const { data } = await axiosFetch.post("/jwt", {
+          email: currentUser.email,
+        });
+        console.log(data);
+        setLoading(false);
+        if (data.token) {
+          localStorage.setItem("token", data.token);
+        }
+      } else {
+        localStorage.removeItem("token");
+      }
     });
     return () => unsubscribe();
-  }, []);
+  }, [axiosFetch]);
 
   const info = {
     createUser,
