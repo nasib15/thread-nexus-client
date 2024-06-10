@@ -29,7 +29,7 @@ const PostSection = () => {
   // Tanstack is creating issue, that's why useEffect
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await axiosFetch("/posts");
+      const { data } = await axiosFetch(`/sort?sort=${"newest"}`);
       setData(data);
     };
     fetchData();
@@ -40,7 +40,7 @@ const PostSection = () => {
   console.log(postData);
 
   const handleSort = async () => {
-    const { data } = await axiosFetch(`/sort?sort=${true}`);
+    const { data } = await axiosFetch(`/sort?sort=${"popularity"}`);
     setData(data);
   };
 
@@ -108,7 +108,7 @@ const PostSection = () => {
             <div className="flex items-end justify-between text-gray-500 text-sm flex-1">
               <div className="flex items-center">
                 <BiUpvote />
-                <span>{post.voteDifference || post.upvote_count}</span>
+                <span>{post.voteDifference}</span>
               </div>
               <div className="flex items-center">
                 <FaRegComment />

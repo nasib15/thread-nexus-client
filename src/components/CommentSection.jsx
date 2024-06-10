@@ -29,7 +29,7 @@ const CommentSection = ({ title }) => {
 
   const { mutateAsync: commentAsync } = useMutation({
     mutationFn: async () => {
-      const { data } = await axiosFetch.patch(`post/${id}`);
+      const { data } = await axiosFetch.patch(`post/${id}?comment=${"true"}`);
       return data;
     },
     onSuccess: () => {
@@ -39,6 +39,10 @@ const CommentSection = ({ title }) => {
 
   const handleSubmitComment = async (e) => {
     e.preventDefault();
+    if (!user) {
+      toast.error("Please login to comment.");
+      return;
+    }
     const commentData = {
       comment: e.target.comment.value,
       postId: id,

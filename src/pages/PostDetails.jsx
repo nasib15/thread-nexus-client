@@ -6,6 +6,7 @@ import Loading from "./../components/Loading";
 import { FaRegShareFromSquare } from "react-icons/fa6";
 import CommentSection from "../components/CommentSection";
 import useCommentsPost from "../hooks/useCommentsPost";
+import toast from "react-hot-toast";
 
 const PostDetails = () => {
   const axiosFetch = useAxios();
@@ -16,6 +17,7 @@ const PostDetails = () => {
     isLoading,
     isError,
     error,
+    refetch,
   } = useQuery({
     queryKey: ["post", id],
     queryFn: async () => {
@@ -38,6 +40,25 @@ const PostDetails = () => {
     downvote_count,
     author,
   } = post;
+
+  const handleClick = async (button) => {
+    if (button === "upvote") {
+      const { data } = await axiosFetch.patch(`/post/${id}?upvote=${"true"}`);
+      if (data.modifiedCount > 0) {
+        toast.success("Upvoted successfully");
+        refetch();
+        return;
+      }
+    }
+    if (button === "downvote") {
+      const { data } = await axiosFetch.patch(`/post/${id}?downvote=${"true"}`);
+      if (data.modifiedCount > 0) {
+        toast.success("Downvoted successfully");
+        refetch();
+        return;
+      }
+    }
+  };
 
   return (
     <div>
@@ -70,7 +91,10 @@ const PostDetails = () => {
                 Share
               </div>
             </button>
-            <button className="text-gray-600 hover:text-gray-800 focus:outline-none">
+            <button
+              onClick={() => handleClick("upvote")}
+              className="text-gray-600 hover:text-gray-800 focus:outline-none"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5 inline-block"
@@ -87,7 +111,10 @@ const PostDetails = () => {
               </svg>
               UpVote
             </button>
-            <button className="text-gray-600 hover:text-gray-800 focus:outline-none">
+            <button
+              onClick={() => handleClick("downvote")}
+              className="text-gray-600 hover:text-gray-800 focus:outline-none"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5 inline-block"
