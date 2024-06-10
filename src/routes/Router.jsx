@@ -6,7 +6,6 @@ import Login from "./../pages/Login";
 import Register from "./../pages/Register";
 import PostDetails from "../pages/PostDetails";
 import Membership from "../pages/Membership";
-import Dashboard from "../layout/Dashboard";
 import AddPost from "../pages/AddPost";
 import MyPosts from "../pages/MyPosts";
 import UserProfile from "../pages/UserProfile";
@@ -17,6 +16,7 @@ import Announcements from "../pages/Announcements";
 import Comments from "../pages/Comments";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
+import Dashboard from "./../layout/Dashboard";
 
 const Router = createBrowserRouter([
   {
