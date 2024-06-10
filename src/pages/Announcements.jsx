@@ -27,7 +27,7 @@ const Announcements = () => {
 
   const onSubmit = async (data) => {
     const { title, description } = data;
-    const date = new Date().toLocaleDateString("en-UK");
+    const date = new Date().toISOString();
     const announcement = { title, description, date };
     await mutateAsync(announcement);
   };

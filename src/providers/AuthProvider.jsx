@@ -61,7 +61,6 @@ const AuthProvider = ({ children }) => {
         const { data } = await axiosFetch.post("/jwt", {
           email: currentUser.email,
         });
-        console.log(data);
         setLoading(false);
         if (data.token) {
           localStorage.setItem("token", data.token);

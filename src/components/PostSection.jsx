@@ -1,19 +1,51 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BiUpvote } from "react-icons/bi";
 import { FaRegComment } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import useAxios from "../hooks/useAxios";
+import Loading from "./Loading";
 
 const PostSection = () => {
   const axiosFetch = useAxios();
-  const { data: posts } = useQuery({
-    queryKey: ["posts"],
-    queryFn: async () => {
+  // const { data: posts } = useQuery({
+  //   queryKey: ["posts"],
+  //   queryFn: async () => {
+  //     const { data } = await axiosFetch("/posts");
+  //     return data;
+  //   },
+  // });
+
+  // const { data: sortedPosts, isLoading } = useQuery({
+  //   queryKey: ["sortedPosts"],
+  //   queryFn: async () => {
+  //     const { data } = await axiosFetch("/sort");
+  //     return data;
+  //   },
+  // });
+
+  const [postData, setData] = useState([]);
+
+  // Tanstack is creating issue, that's why useEffect
+  useEffect(() => {
+    const fetchData = async () => {
       const { data } = await axiosFetch("/posts");
-      return data;
-    },
-  });
+      setData(data);
+    };
+    fetchData();
+  }, [axiosFetch]);
+
+  // if (isLoading) return <Loading />;
+  // console.log(sortedPosts);
+  console.log(postData);
+
+  const handleSort = async () => {
+    const { data } = await axiosFetch(`/sort?sort=${true}`);
+    setData(data);
+  };
+
+  // console.log(postData);
+
   // const [currentPage, setCurrentPage] = useState(1);
   // const postsPerPage = 5;
 
@@ -31,9 +63,15 @@ const PostSection = () => {
           Browse through our latest posts and updates. Click on a post to read
           more.
         </p>
+        <button
+          onClick={handleSort}
+          className="btn bg-lime-400 hover:bg-lime-500 text-neutral-800"
+        >
+          Sort by Popularity
+        </button>
       </div>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-10">
-        {posts?.map((post) => (
+        {postData?.map((post) => (
           <Link
             to={`/post-details/${post._id}`}
             key={post._id}
@@ -70,7 +108,7 @@ const PostSection = () => {
             <div className="flex items-end justify-between text-gray-500 text-sm flex-1">
               <div className="flex items-center">
                 <BiUpvote />
-                <span>{post.upvote_count}</span>
+                <span>{post.voteDifference || post.upvote_count}</span>
               </div>
               <div className="flex items-center">
                 <FaRegComment />
