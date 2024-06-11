@@ -2,16 +2,24 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import useAxios from "../hooks/useAxios";
 import toast from "react-hot-toast";
+import { useState } from "react";
+import Loading from "./../components/Loading";
+import useFullSiteData from "../hooks/useFullSiteData";
 
 const ManageUsers = () => {
   const axiosFetch = useAxios();
   const queryClient = useQueryClient();
+  const [currentPage, setCurrentPage] = useState(1);
+  const { usersData: users } = useFullSiteData();
+  const usersCount = users?.length;
 
   // getting users data
-  const { data: usersData } = useQuery({
-    queryKey: ["users"],
+  const { data: usersData = [], isLoading } = useQuery({
+    queryKey: ["usersData", currentPage],
     queryFn: async () => {
-      const { data } = await axiosFetch(`/users`);
+      const { data } = await axiosFetch(
+        `/users?size=${10}&page=${currentPage}`
+      );
       return data;
     },
   });
@@ -30,6 +38,12 @@ const ManageUsers = () => {
       toast.success("User is now an admin");
     },
   });
+
+  if (isLoading) return <Loading />;
+
+  const usersLength = usersCount;
+  const totalPages = Math.ceil(usersLength / 10);
+  const pages = [...Array(totalPages).keys()];
 
   return (
     <div>
@@ -80,6 +94,25 @@ const ManageUsers = () => {
               ))}
             </tbody>
           </table>
+          <div className="flex justify-center mt-6">
+            {
+              <div className="flex space-x-2">
+                {pages.map((page) => (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page + 1)}
+                    className={`${
+                      currentPage === page + 1
+                        ? "bg-lime-500 text-white"
+                        : "bg-white text-gray-800"
+                    } px-3 py-1 rounded-lg`}
+                  >
+                    {page + 1}
+                  </button>
+                ))}
+              </div>
+            }
+          </div>
         </div>
       </div>
     </div>
