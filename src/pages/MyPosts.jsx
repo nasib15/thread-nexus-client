@@ -1,17 +1,31 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { FaComment, FaTrashAlt } from "react-icons/fa";
 import useUserPosts from "./../hooks/useUserPosts";
 import Loading from "./../components/Loading";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import useAxios from "../hooks/useAxios";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../providers/AuthProvider";
 
 const MyPosts = () => {
+  const { user } = useContext(AuthContext);
   const { userPosts, isLoading } = useUserPosts();
   const axiosFetch = useAxios();
   const queryClient = useQueryClient();
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Getting user posts and sending query for pagination
+  const { data: userPostsData } = useQuery({
+    queryKey: ["userPosts", user?.email, currentPage],
+    queryFn: async () => {
+      const { data } = await axiosFetch(
+        `/posts?email=${user?.email}&size=${5}&page=${currentPage}`
+      );
+      return data;
+    },
+  });
 
   const { mutateAsync } = useMutation({
     mutationFn: async (postId) => {
@@ -48,6 +62,10 @@ const MyPosts = () => {
 
   if (isLoading) return <Loading />;
 
+  const totalPosts = userPosts?.length;
+  const totalPages = Math.ceil(totalPosts / 5);
+  const pages = [...Array(totalPages).keys()];
+
   return (
     <div>
       <div className="max-w-6xl mx-auto bg-white shadow-md rounded-lg overflow-hidden p-6">
@@ -63,7 +81,7 @@ const MyPosts = () => {
               </tr>
             </thead>
             <tbody className="text-gray-600 text-sm font-light">
-              {userPosts?.map((post) => (
+              {userPostsData?.map((post) => (
                 <tr
                   key={post._id}
                   className="border-b border-gray-200 hover:bg-gray-100"
@@ -96,6 +114,25 @@ const MyPosts = () => {
               ))}
             </tbody>
           </table>
+          <div className="flex justify-center mt-6">
+            {
+              <div className="flex space-x-2">
+                {pages.map((page) => (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page + 1)}
+                    className={`${
+                      currentPage === page + 1
+                        ? "bg-lime-500 text-white"
+                        : "bg-white text-gray-800"
+                    } px-3 py-1 rounded-lg`}
+                  >
+                    {page + 1}
+                  </button>
+                ))}
+              </div>
+            }
+          </div>
         </div>
       </div>
     </div>
