@@ -3,18 +3,30 @@ import useCommentsPost from "../hooks/useCommentsPost";
 import Loading from "../components/Loading";
 import Select from "react-select";
 import { useContext, useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import useAxios from "../hooks/useAxios";
 import toast from "react-hot-toast";
 import { AuthContext } from "../providers/AuthProvider";
 
 const Comments = () => {
+  const [currentPage, setCurrentPage] = useState(1);
   const { postId } = useParams();
   const { comments, isLoading } = useCommentsPost(postId);
   const [feedback, setFeedback] = useState("");
   const [report, setReport] = useState(true);
   const axiosFetch = useAxios();
   const { user } = useContext(AuthContext);
+
+  // Getting comments by sending pagination details
+  const { data: commentsData = [] } = useQuery({
+    queryKey: ["comments", postId, currentPage],
+    queryFn: async () => {
+      const { data } = await axiosFetch(
+        `/comments/${postId}?size=${5}&page=${currentPage}`
+      );
+      return data;
+    },
+  });
 
   const { mutateAsync } = useMutation({
     mutationFn: async (reportedData) => {
@@ -62,6 +74,10 @@ const Comments = () => {
   };
 
   if (isLoading) return <Loading />;
+
+  const commentsLength = comments?.length;
+  const totalPages = Math.ceil(commentsLength / 5);
+  const pages = [...Array(totalPages).keys()];
 
   return (
     <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
@@ -132,7 +148,7 @@ const Comments = () => {
                 </thead>
 
                 <tbody className="divide-y divide-gray-200 dark:divide-neutral-700 ">
-                  {comments?.map((comment, index) => (
+                  {commentsData?.map((comment, index) => (
                     <tr key={comment._id}>
                       <td className="size-px whitespace-nowrap">
                         <div className="ps-6 py-3">
@@ -239,6 +255,25 @@ const Comments = () => {
                     </span>{" "}
                     comments
                   </p>
+                </div>
+                <div className="flex items-center">
+                  {
+                    <div className="flex space-x-2">
+                      {pages.map((page) => (
+                        <button
+                          key={page}
+                          onClick={() => setCurrentPage(page + 1)}
+                          className={`${
+                            currentPage === page + 1
+                              ? "bg-lime-500 text-white"
+                              : "bg-white text-gray-800"
+                          } px-3 py-1 rounded-lg`}
+                        >
+                          {page + 1}
+                        </button>
+                      ))}
+                    </div>
+                  }
                 </div>
               </div>
             </div>
