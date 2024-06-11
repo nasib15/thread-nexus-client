@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import useTags from "../hooks/useTags";
+import useAxios from "../hooks/useAxios";
+import SearchedPost from "./SearchedPost";
 
 const Banner = () => {
   const { tags } = useTags();
-  const handleSearch = (e) => {
+  const axiosFetch = useAxios();
+  const [searchedPost, setSearchedPost] = useState([]);
+  const handleSearch = async (e) => {
     e.preventDefault();
+    const search = e.target.search.value;
+    const { data: searchedPost } = await axiosFetch(`/tags?search=${search}`);
+    setSearchedPost(searchedPost);
   };
   return (
     <>
@@ -30,8 +37,8 @@ const Banner = () => {
                       <span className="sr-only">Search article</span>
                     </label>
                     <input
-                      type="email"
-                      name="hs-search-article-1"
+                      type="text"
+                      name="search"
                       id="hs-search-article-1"
                       className="py-2.5 px-4 block w-full border-transparent rounded-lg"
                       placeholder="Search posts"
@@ -120,6 +127,9 @@ const Banner = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div>
+        {searchedPost.length > 0 && <SearchedPost posts={searchedPost} />}
       </div>
     </>
   );
