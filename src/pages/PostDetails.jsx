@@ -30,11 +30,7 @@ const PostDetails = () => {
   } = useQuery({
     queryKey: ["post", id],
     queryFn: async () => {
-      const { data } = await axiosFetch(`/post/${id}`, {
-        headers: {
-          authorization: `${localStorage.getItem("token")}`,
-        },
-      });
+      const { data } = await axiosFetch(`/post/${id}`);
       return data;
     },
   });
