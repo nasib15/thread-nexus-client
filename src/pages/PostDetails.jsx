@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import useAxios from "../hooks/useAxios";
 import Loading from "./../components/Loading";
@@ -14,8 +14,10 @@ import {
   TwitterIcon,
   TwitterShareButton,
 } from "react-share";
+import { AuthContext } from "../providers/AuthProvider";
 
 const PostDetails = () => {
+  const { user } = useContext(AuthContext);
   const axiosFetch = useAxios();
   const { id } = useParams();
   const { comments } = useCommentsPost(id);
@@ -49,6 +51,10 @@ const PostDetails = () => {
   } = post;
 
   const handleClick = async (button) => {
+    if (!user) {
+      toast.error("Please login to vote");
+      return;
+    }
     if (button === "upvote") {
       const { data } = await axiosFetch.patch(`/post/${id}?upvote=${"true"}`);
       if (data.modifiedCount > 0) {
