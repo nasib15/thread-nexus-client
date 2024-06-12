@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { useForm } from "react-hook-form";
-import useAxios from "./../hooks/useAxios";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const Announcements = () => {
   const {
@@ -11,11 +11,11 @@ const Announcements = () => {
     formState: { errors },
     reset,
   } = useForm();
-  const axiosFetch = useAxios();
+  const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
   const { mutateAsync } = useMutation({
     mutationFn: async (announcement) => {
-      const { data } = await axiosFetch.post("/announcements", announcement);
+      const { data } = await axiosSecure.post("/announcements", announcement);
       return data;
     },
     onSuccess: () => {

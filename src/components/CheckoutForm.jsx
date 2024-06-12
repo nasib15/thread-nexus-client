@@ -1,11 +1,11 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import useAxios from "./../hooks/useAxios";
 import { useMutation } from "@tanstack/react-query";
 import { AuthContext } from "./../providers/AuthProvider";
 import useUser from "./../hooks/useUser";
 import Loading from "./Loading";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const CheckoutForm = () => {
   const stripe = useStripe();
@@ -14,14 +14,14 @@ const CheckoutForm = () => {
   const [clientSecret, setClientSecret] = useState("");
   const [transactionId, setTransactionId] = useState("");
   const { user } = useContext(AuthContext);
-  const axiosFetch = useAxios();
+  const axiosSecure = useAxiosSecure();
   const price = 10;
   const { userData, isLoading } = useUser(user?.email);
 
   // Patching user role in the database
   const { mutateAsync } = useMutation({
     mutationFn: async (patchedData) => {
-      const { data } = await axiosFetch.patch(
+      const { data } = await axiosSecure.patch(
         `/user/${user?.email}`,
         patchedData
       );
@@ -30,7 +30,7 @@ const CheckoutForm = () => {
   });
 
   useEffect(() => {
-    axiosFetch
+    axiosSecure
       .post("/create-payment-intent", {
         price,
       })
@@ -38,7 +38,7 @@ const CheckoutForm = () => {
         console.log(res.data.clientSecret);
         setClientSecret(res.data.clientSecret);
       });
-  }, [axiosFetch]);
+  }, [axiosSecure]);
 
   if (isLoading) return <Loading />;
 

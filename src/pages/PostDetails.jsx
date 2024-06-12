@@ -15,10 +15,12 @@ import {
   TwitterShareButton,
 } from "react-share";
 import { AuthContext } from "../providers/AuthProvider";
+import useAxiosSecure from "./../hooks/useAxiosSecure";
 
 const PostDetails = () => {
   const { user } = useContext(AuthContext);
   const axiosFetch = useAxios();
+  const axiosSecure = useAxiosSecure();
   const { id } = useParams();
   const { comments } = useCommentsPost(id);
   const {
@@ -50,13 +52,21 @@ const PostDetails = () => {
     author,
   } = post;
 
+  const handleShare = () => {
+    if (!user) {
+      toast.error("Please login to share");
+      return;
+    }
+    toast.success("Shared successfully");
+  };
+
   const handleClick = async (button) => {
     if (!user) {
       toast.error("Please login to vote");
       return;
     }
     if (button === "upvote") {
-      const { data } = await axiosFetch.patch(`/post/${id}?upvote=${"true"}`);
+      const { data } = await axiosSecure.patch(`/post/${id}?upvote=${"true"}`);
       if (data.modifiedCount > 0) {
         toast.success("Upvoted successfully");
         refetch();
@@ -64,7 +74,9 @@ const PostDetails = () => {
       }
     }
     if (button === "downvote") {
-      const { data } = await axiosFetch.patch(`/post/${id}?downvote=${"true"}`);
+      const { data } = await axiosSecure.patch(
+        `/post/${id}?downvote=${"true"}`
+      );
       if (data.modifiedCount > 0) {
         toast.success("Downvoted successfully");
         refetch();
@@ -100,19 +112,20 @@ const PostDetails = () => {
           <div className="space-x-3 flex items-center">
             <button className="text-gray-600 hover:text-gray-800 focus:outline-none">
               <div className="flex items-center gap-3">
-                {/* <FaRegShareFromSquare />
-                Share */}
                 <FacebookShareButton
+                  onClick={handleShare}
                   url={`https://thread-nexus.web.app/post/${id}`}
                 >
                   <FacebookIcon size={32} round={true} />
                 </FacebookShareButton>
                 <TelegramShareButton
+                  onClick={handleShare}
                   url={`https://thread-nexus.web.app/post/${id}`}
                 >
                   <TelegramIcon size={32} round={true} />
                 </TelegramShareButton>
                 <TwitterShareButton
+                  onClick={handleShare}
                   url={`https://thread-nexus.web.app/post/${id}`}
                 >
                   <TwitterIcon size={32} round={true} />

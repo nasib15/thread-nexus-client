@@ -1,13 +1,13 @@
 // ManageUsers.js
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import useAxios from "../hooks/useAxios";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import Loading from "./../components/Loading";
 import useFullSiteData from "../hooks/useFullSiteData";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const ManageUsers = () => {
-  const axiosFetch = useAxios();
+  const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
   const [currentPage, setCurrentPage] = useState(1);
   const { usersData: users } = useFullSiteData();
@@ -17,7 +17,7 @@ const ManageUsers = () => {
   const { data: usersData = [], isLoading } = useQuery({
     queryKey: ["usersData", currentPage],
     queryFn: async () => {
-      const { data } = await axiosFetch(
+      const { data } = await axiosSecure(
         `/users?size=${10}&page=${currentPage}`
       );
       return data;
@@ -27,7 +27,7 @@ const ManageUsers = () => {
   // function to make user admin
   const { mutateAsync } = useMutation({
     mutationFn: async (userData) => {
-      const { data } = await axiosFetch.patch(`/user/${userData.email}`, {
+      const { data } = await axiosSecure.patch(`/user/${userData.email}`, {
         membership_status: userData.member,
         user_role: "admin",
       });

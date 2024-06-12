@@ -8,11 +8,13 @@ import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const MyPosts = () => {
   const { user } = useContext(AuthContext);
   const { userPosts, isLoading } = useUserPosts();
   const axiosFetch = useAxios();
+  const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -29,7 +31,7 @@ const MyPosts = () => {
 
   const { mutateAsync } = useMutation({
     mutationFn: async (postId) => {
-      const { data } = await axiosFetch.delete(`/post/${postId}`);
+      const { data } = await axiosSecure.delete(`/post/${postId}`);
       return data;
     },
 

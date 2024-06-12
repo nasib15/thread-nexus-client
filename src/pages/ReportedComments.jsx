@@ -1,16 +1,16 @@
 import Loading from "../components/Loading";
 import useReports from "../hooks/useReports";
-import useAxios from "../hooks/useAxios";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const ReportedComments = () => {
   const { reports, isLoading, refetch } = useReports();
-  const axiosFetch = useAxios();
+  const axiosSecure = useAxiosSecure();
 
   const handleAction = async (report, buttonClicked) => {
     // await mutateAsync(report);
-    const { data } = await axiosFetch.patch(
-      `report/${report._id}?status=${buttonClicked}&commentId=${report.commentId}&postId=${report.postId}`
+    const { data } = await axiosSecure.patch(
+      `/report/${report._id}?status=${buttonClicked}&commentId=${report.commentId}&postId=${report.postId}`
     );
     if (data.modifiedCount === 1) {
       toast.success("Report ignored");

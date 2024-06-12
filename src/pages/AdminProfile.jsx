@@ -1,22 +1,22 @@
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
-import useAxios from "../hooks/useAxios";
 import useUser from "../hooks/useUser";
 import Loading from "../components/Loading";
 import useFullSiteData from "../hooks/useFullSiteData";
 import useTags from "../hooks/useTags";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const AdminProfile = () => {
   const { tags } = useTags();
   const { userData, isLoading } = useUser();
-  const axiosFetch = useAxios();
+  const axiosSecure = useAxiosSecure();
   const sitesData = useFullSiteData();
   const { postsData, usersData, commentsData } = sitesData;
   const queryClient = useQueryClient();
   const { mutateAsync } = useMutation({
     mutationFn: async (tag) => {
-      const { data } = await axiosFetch.post("/tags", { name: tag });
+      const { data } = await axiosSecure.post("/tags", { name: tag });
       return data;
     },
     onSuccess: () => {

@@ -1,8 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "./useAxios";
+import useAxiosSecure from "./useAxiosSecure";
 
 const useFullSiteData = () => {
   const axiosFetch = useAxios();
+  const axiosSecure = useAxiosSecure();
   // getting post data
   const { data: postsData = [] } = useQuery({
     queryKey: ["posts"],
@@ -16,7 +18,7 @@ const useFullSiteData = () => {
   const { data: usersData = [] } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const { data } = await axiosFetch(`/users`);
+      const { data } = await axiosSecure(`/users`);
       return data;
     },
   });

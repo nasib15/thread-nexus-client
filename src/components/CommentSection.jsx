@@ -3,22 +3,22 @@ import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "./../providers/AuthProvider";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import useAxios from "../hooks/useAxios";
 import toast from "react-hot-toast";
 import useCommentsPost from "../hooks/useCommentsPost";
 import Loading from "./Loading";
 import { formatTimeAgo } from "./CompareTime";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const CommentSection = ({ title }) => {
   const { id } = useParams();
   const { user } = useContext(AuthContext);
-  const axiosFetch = useAxios();
+  const axiosSecure = useAxiosSecure();
   const { comments, isLoading } = useCommentsPost(id);
   const queryClient = useQueryClient();
 
   const { mutateAsync } = useMutation({
     mutationFn: async (commentData) => {
-      const { data } = await axiosFetch.post("comments", commentData);
+      const { data } = await axiosSecure.post("/comments", commentData);
       return data;
     },
     onSuccess: () => {
@@ -29,7 +29,7 @@ const CommentSection = ({ title }) => {
 
   const { mutateAsync: commentAsync } = useMutation({
     mutationFn: async () => {
-      const { data } = await axiosFetch.patch(`post/${id}?comment=${"true"}`);
+      const { data } = await axiosSecure.patch(`post/${id}?comment=${"true"}`);
       return data;
     },
     onSuccess: () => {

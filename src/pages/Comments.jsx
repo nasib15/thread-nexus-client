@@ -7,6 +7,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import useAxios from "../hooks/useAxios";
 import toast from "react-hot-toast";
 import { AuthContext } from "../providers/AuthProvider";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const Comments = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -15,6 +16,7 @@ const Comments = () => {
   const [feedback, setFeedback] = useState("");
   const [report, setReport] = useState(true);
   const axiosFetch = useAxios();
+  const axiosSecure = useAxiosSecure();
   const { user } = useContext(AuthContext);
 
   // Getting comments by sending pagination details
@@ -30,7 +32,7 @@ const Comments = () => {
 
   const { mutateAsync } = useMutation({
     mutationFn: async (reportedData) => {
-      const { data } = await axiosFetch.post("/reports", reportedData);
+      const { data } = await axiosSecure.post("/reports", reportedData);
       return data;
     },
     onSuccess: () => {

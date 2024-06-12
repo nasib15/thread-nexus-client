@@ -4,13 +4,13 @@ import { useForm } from "react-hook-form";
 import Select from "react-select";
 import { AuthContext } from "../providers/AuthProvider";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import useAxios from "../hooks/useAxios";
 import toast from "react-hot-toast";
 import BecomeMember from "../components/BecomeMember";
 import Loading from "./../components/Loading";
 import useUser from "../hooks/useUser";
 import useUserPosts from "../hooks/useUserPosts";
 import useTags from "./../hooks/useTags";
+import useAxiosSecure from "./../hooks/useAxiosSecure";
 
 const AddPost = () => {
   const {
@@ -22,7 +22,7 @@ const AddPost = () => {
   const [tags, setTags] = useState(null);
   const { tags: allTags } = useTags();
   const { user } = useContext(AuthContext);
-  const axiosFetch = useAxios();
+  const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
   const { userData } = useUser();
   const { userPosts, isLoading } = useUserPosts();
@@ -30,7 +30,7 @@ const AddPost = () => {
   // Add post mutation
   const { mutateAsync } = useMutation({
     mutationFn: async (postData) => {
-      const { data } = await axiosFetch.post("/posts", postData);
+      const { data } = await axiosSecure.post("/posts", postData);
       return data;
     },
     onSuccess: () => {
