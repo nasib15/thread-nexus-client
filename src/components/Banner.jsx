@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useTags from "../hooks/useTags";
 import useAxios from "../hooks/useAxios";
 import SearchedPost from "./SearchedPost";
+import toast from "react-hot-toast";
 
 const Banner = () => {
   const { tags } = useTags();
@@ -12,6 +13,7 @@ const Banner = () => {
     const search = e.target.search.value;
     const { data: searchedPost } = await axiosFetch(`/tags?search=${search}`);
     setSearchedPost(searchedPost);
+    if (searchedPost.length === 0) return toast.error("No post found");
   };
   return (
     <>
