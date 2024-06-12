@@ -35,7 +35,6 @@ const CheckoutForm = () => {
         price,
       })
       .then((res) => {
-        console.log(res.data.clientSecret);
         setClientSecret(res.data.clientSecret);
       });
   }, [axiosSecure]);

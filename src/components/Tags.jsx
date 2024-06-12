@@ -3,10 +3,6 @@ import useTags from "../hooks/useTags";
 
 const Tags = () => {
   const { tags } = useTags();
-  const handleTagClick = (tag) => {
-    // Redirect to a page or perform a search with the tag
-    console.log(`Searching for posts with tag: ${tag}`);
-  };
   return (
     <div className="my-24">
       <div className="text-center space-y-4">
@@ -21,7 +17,6 @@ const Tags = () => {
           <button
             key={index}
             className="bg-lime-200 text-lime-700 px-4 py-2 rounded-lg hover:bg-lime-300 focus:outline-none"
-            onClick={() => handleTagClick(tag)}
           >
             {tag?.name}
           </button>

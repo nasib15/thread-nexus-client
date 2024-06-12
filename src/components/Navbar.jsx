@@ -224,7 +224,7 @@ const Navbar = () => {
                   href="#announcements"
                   className="badge badge-xs badge-primary indicator-item"
                 >
-                  2
+                  {announcements?.length}
                 </a>
               </div>
             </button>

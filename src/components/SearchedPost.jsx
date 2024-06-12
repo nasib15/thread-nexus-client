@@ -7,7 +7,6 @@ import useTags from "../hooks/useTags";
 
 const SearchedPost = ({ posts }) => {
   const { tags } = useTags();
-  console.log(posts);
   if (JSON.stringify(posts) == JSON.stringify(tags)) return null;
   return (
     <div className="my-24">
