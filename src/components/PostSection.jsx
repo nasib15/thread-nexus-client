@@ -10,23 +10,25 @@ const PostSection = () => {
   const { posts } = usePosts();
   const [postData, setPostData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortedBy, setSortedBy] = useState("newest");
 
   // Tanstack is creating issue, that's why useEffect
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await axiosFetch(
-        `/sort?sort=${"newest"}&size=${5}&page=${currentPage}`
+        `/sort?sort=${sortedBy}&size=${5}&page=${currentPage}`
       );
       setPostData(data);
     };
     fetchData();
-  }, [axiosFetch, currentPage]);
+  }, [axiosFetch, currentPage, sortedBy]);
 
   const totalPosts = posts?.length;
   const totalPages = Math.ceil(totalPosts / 5);
   const pages = [...Array(totalPages).keys()];
 
   const handleSort = async () => {
+    setSortedBy("popularity");
     const { data } = await axiosFetch(
       `/sort?sort=${"popularity"}&size=${5}&page=${currentPage}`
     );
