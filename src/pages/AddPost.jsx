@@ -10,6 +10,7 @@ import BecomeMember from "../components/BecomeMember";
 import Loading from "./../components/Loading";
 import useUser from "../hooks/useUser";
 import useUserPosts from "../hooks/useUserPosts";
+import useTags from "./../hooks/useTags";
 
 const AddPost = () => {
   const {
@@ -19,6 +20,7 @@ const AddPost = () => {
     formState: { errors },
   } = useForm();
   const [tags, setTags] = useState(null);
+  const { tags: allTags } = useTags();
   const { user } = useContext(AuthContext);
   const axiosFetch = useAxios();
   const queryClient = useQueryClient();
@@ -37,13 +39,10 @@ const AddPost = () => {
     },
   });
 
-  const options = [
-    { value: "technology", label: "Technology" },
-    { value: "health", label: "Health" },
-    { value: "education", label: "Education" },
-    { value: "management", label: "Management" },
-    { value: "tips", label: "Tips" },
-  ];
+  const options = allTags?.map((tag) => ({
+    value: tag.name,
+    label: tag.name.charAt(0).toUpperCase() + tag.name.slice(1),
+  }));
 
   const handleChange = (option) => {
     if (option) {
