@@ -26,8 +26,8 @@
 1. **Clone the repository:**
 
    ```
-   git clone https://github.com/knh-nehal/thread-nexus-client-side.git
-   cd thread-nexus-client-side
+   git clone https://github.com/nasib15/thread-nexus-client.git
+   cd thread-nexus-client
    ```
 
 2. **Install the dependencies:**
